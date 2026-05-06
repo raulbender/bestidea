@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Framework\Utils\Logger;
 
-use Framework\Http\Request;
-
 class LogService
 {
     private const STORAGE_LOG_PATH = __DIR__ . '/../../../storage/logs/';
@@ -32,8 +30,6 @@ class LogService
 
     private function generateHeader(string $level): string
     {
-        $request = new Request();
-        $uri = $this->formatStringToNumChars($request->uri(), 20);
         $levelStr = $this->formatStringToNumChars($level, 5);
         $date = date('Y-m-d H:i:s');
 
@@ -42,7 +38,7 @@ class LogService
 
         $memoryTXT = $this->formatStringToNumChars("$date][MEM: {$memory}MB | PEAK: {$peak}MB", 47);
 
-        return "[>$levelStr][$memoryTXT][$uri]";
+        return "[>$levelStr][$memoryTXT]";
     }
 
     private function saveLog(string $fileName, string $message): void
