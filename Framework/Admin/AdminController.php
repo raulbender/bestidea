@@ -19,7 +19,7 @@ class AdminController extends BaseController
 
     public function index(Request $request): ResponseDTO
     {
-        $this->protectArea();
+      //  $this->protectArea();
         $adminDTO = new AdminDTO();
 
         if ($request->isPost()) {
