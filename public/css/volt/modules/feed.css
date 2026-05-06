@@ -1,0 +1,24 @@
+/* public/css/volt/modules/feed.css */
+
+.post-card-transition {
+    transition: transform var(--transition-fast) var(--ease-out);
+}
+
+.post-card-transition:hover {
+    transform: translateY(-2px);
+}
+
+/* Área de comentários utilizando as variáveis do core/colors.css */
+.feed-comments-box {
+    background-color: var(--bg-badge);
+    overflow: hidden;
+}
+
+.feed-comment-item {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Remove a linha do último comentário para um visual mais limpo */
+.feed-comment-item:last-child {
+    border-bottom: none;
+}
