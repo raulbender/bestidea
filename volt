@@ -13,13 +13,7 @@ if (file_exists(__DIR__ . '/.env')) {
     $dotenv->load();
 }
 
-if (!defined('LOG_CONFIG')) {
-    define('LOG_CONFIG', [
-        'DEBUG' => 0, 'INFO' => 1, 'SQL' => 1, 'WARNING' => 1, 'ERROR' => 1, 'FATAL' => 1,
-    ]);
-}
-
-require_once __DIR__ . '/Framework/Dependencies.php';
+require_once __DIR__ . '/Framework/boot.php';
 
 echo "🚀 Volt FPM - Console\n\n";
 try {
