@@ -16,6 +16,7 @@ class MakeContext implements CommandInterface
         'Framework/Http/Request.php',
         'Framework/BaseController.php',
         'Framework/Database/DatabaseInterface.php',
+        'Framework/Database/QueryBuilder.php',
         'Framework/Http/Session/SessionInterface.php',
         'Framework/Utils/Navigation.php',
         'Framework/Utils/Helpers.php',
