@@ -1,0 +1,23 @@
+body.debugMode * {
+    outline: 1px solid rgba(255, 0, 0, 0.2) !important;
+}
+body.debugMode div {
+    outline-color: rgba(0, 123, 255, 0.4) !important;
+}
+body.debugMode section {
+    outline-color: rgba(40, 167, 69, 0.4) !important;
+}
+
+body.debugMode::after {
+    content: "🕵️ DEBUG MODE ON";
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: #f1c40f;
+    padding: 5px 10px;
+    font-size: 10px;
+    z-index: 10000;
+    pointer-events: none;
+    border-radius: 4px;
+}

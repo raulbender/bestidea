@@ -1,0 +1,36 @@
+# --- Volt-R2 Core ---
+vendor/
+.env
+rr
+.rr.yaml.bak
+
+# --- PHPUnit & QA ---
+.phpunit.result.cache
+phpunit.xml
+.php-cs-fixer.cache
+.phpstan.cache
+
+# --- Storage & Logs ---
+storage/sessions/sess_*
+storage/logs/*.log
+storage/logs/app.log
+storage/last_post_id.txt
+
+# --- OS & IDE ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Docker ---
+.docker/
+
+# Backups
+*.bundle
+
+# --- Ignore context_ai.xml for now, as it contains generated code ---
+context_ai.xml
+context_total.xml
+
+# --- Ignore override for development environment ---
+docker-compose.override.yml

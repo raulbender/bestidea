@@ -1,0 +1,68 @@
+/* ./public/css/volt/components/dropdowns.css */
+
+.drop-down-menu {
+    display: none;
+    position: absolute;
+    /* Usando a altura da Nav para posicionar perfeitamente abaixo dela */
+    top: calc(var(--nav-height) + var(--space-1)); 
+    
+    /* Visual Glassmorphism sincronizado com a Navbar */
+    background-color: var(--bg-card-glass);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    
+    z-index: 1000;
+    overflow: hidden;
+    min-width: var(--dropdown-min-width);
+}
+
+/* Quando o JS do Volt ativa o menu */
+.drop-down-menu.active {
+    display: flex;
+    flex-direction: column;
+    /* A animação mágica que você configurou no core/animations.css */
+    animation: voltEntrance var(--transition-normal) var(--ease-out) forwards;
+}
+
+.drop-down-menu a {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: var(--font-size-sm);
+    transition: background var(--transition-fast) var(--ease-out);
+}
+
+.drop-down-menu a:hover {
+    background-color: var(--bg-hover);
+    color: var(--primary-dark);
+}
+
+/* Divisores internos (HR) mais sutis */
+.drop-down-menu hr {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin: var(--space-1) 0;
+}
+
+/* Alinhamentos */
+.drop-down-menu.right-aligned {
+    right: var(--container-padding);
+    left: auto;
+}
+
+/* Cabeçalho do menu de usuário (nome do admin) */
+.user-menu-header {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--bg-badge);
+    border-bottom: 1px solid var(--glass-border);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+}

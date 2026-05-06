@@ -1,0 +1,111 @@
+/* public/assets/css/admin-tools.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background: #1e1e1e;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+h2 {
+    color: #f1c40f;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+input {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    width: 100%;
+    margin-bottom: 20px;
+    background: #2a2a2a;
+    color: #fff;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input:focus {
+    border-color: #f1c40f;
+}
+
+button {
+    background: #f1c40f;
+    color: #121212;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: 0.3s;
+    margin-right: 10px; 
+    margin-bottom: 20px; 
+}
+
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+button:hover {
+    background: #d4ac0d;
+    transform: translateY(-2px);
+}
+
+.status-msg {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.error {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.success {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1e293b;
+    color: #fff;
+    font-size: 0.9rem;
+}
+.admin-table th, .admin-table td {
+    border: 1px solid #334155;
+    padding: 10px;
+    text-align: left;
+}
+.admin-table th { background: #334155; color: var(--accent-color); }
+.admin-table tr:hover { background: #2d3748; }

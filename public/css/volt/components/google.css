@@ -1,0 +1,30 @@
+.btn-google {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--white); /* Usando seu token de cor */
+    color: #757575; /* Cor padrão da Google (manter) */
+    
+    /* Integração com seu Sistema Volt */
+    border: 1px solid var(--border-color); 
+    border-radius: var(--radius-base); /* Ou var(--radius-full) se quiser seguir seus botões */
+    padding: var(--space-2) var(--space-4);
+    
+    font-family: var(--font-main);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    
+    /* Sua curva de animação padrão */
+    transition: all var(--transition-fast) var(--ease-out);
+}
+
+.btn-google:hover {
+    background-color: var(--bg-hover);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px); /* Mantendo o comportamento dos seus .btn */
+}
+
+.btn-google svg {
+    margin-right: var(--space-3);
+    width: 18px;
+    height: 18px;
+}

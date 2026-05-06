@@ -1,0 +1,19 @@
+### Global Configurations (REST Client Variables)
+@baseUrl = http://localhost:8080
+
+### Home Route Test
+GET {{baseUrl}}/
+Accept: text/html
+
+### Non-existent Route Test (To trigger the ErrorHandler!)
+GET {{baseUrl}}/non-existent-route
+Accept: text/html
+
+### Post Request Test (Future example for Posts)
+POST {{baseUrl}}/post
+Content-Type: application/json
+
+{
+    "name": "Web Walker",
+    "message": "I've just leveled up my Logger with Aegis! 🚀"
+}

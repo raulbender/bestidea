@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Database\Migrations;
+
+use Framework\Database\DatabaseInterface;
+use Framework\Database\MigrationInterface;
+
+class {{className}} implements MigrationInterface
+{
+    public function up(DatabaseInterface $db): void
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS {{tableName}}  (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+        $db->query($sql);
+    }
+
+    public function down(DatabaseInterface $db): void
+    {
+        $db->query("DROP TABLE IF EXISTS {{tableName}}");
+    }
+}

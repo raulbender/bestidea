@@ -1,0 +1,99 @@
+/*---------------------Signup------------------------------*/
+.signupCta {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--borderColor);
+}
+.signupCta p {
+    margin-bottom: 15px;
+    color: var(--textMuted);
+}
+
+.termsText {
+    text-align: left;
+    color: var(--textMuted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 5px 0 10px 0;
+}
+/*---------------------End Signup------------------------------*/
+
+/*---------------------Login------------------------------*/
+.loginLayout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px;
+}
+.loginContent {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--mainColor);
+    border: 1px solid var(--borderColor);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 12px var(--shadowColor);
+}
+@media (max-width: 600px) {
+    .loginLayout {
+        padding: 20px 10px;
+    }
+    .loginContent {
+        padding: 30px 15px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+}
+
+.loginBox {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.logoLogin {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.title {
+    font-size: 2.2rem;
+    color: var(--textMain);
+    margin-bottom: 5px;
+    font-weight: 800;
+}
+[class*='theme-'] .title {
+    color: var(--themePrimary);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--textMuted);
+    margin-bottom: 30px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+
+.errorBox {
+    background-color: #fdeaea;
+    color: var(--error);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--error);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}

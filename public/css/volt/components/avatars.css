@@ -1,0 +1,56 @@
+.volt-avatar {
+    width: var(--space-9); 
+    height: var(--space-9);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    border-radius: var(--radius-full);
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    
+    font-size: var(--font-size-lg); 
+    
+    /* Transição usando nossos tokens de animação */
+    transition: all var(--transition-fast) var(--ease-out);
+    
+    overflow: hidden;
+    flex-shrink: 0;
+    
+    /* Shadow suave para profundidade */
+    box-shadow: var(--shadow-sm);
+}
+
+/* Imagem interna para garantir que cubra o círculo */
+.volt-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Variações de Tamanho */
+.volt-avatar-sm { 
+    width: var(--space-6); 
+    height: var(--space-6); 
+    font-size: var(--font-size-sm); 
+}
+
+.volt-avatar-lg { 
+    width: var(--space-12); 
+    height: var(--space-12); 
+    font-size: 2rem; 
+}
+
+/* Efeito de destaque sincronizado com o componente pai (trigger) */
+.wrapper-trigger:hover .volt-avatar,
+.wrapper-trigger.active .volt-avatar {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+    transform: scale(1.05);
+}
+
+/* Ajuste específico para quando está na Navbar (sem margem superior) */
+.volt-avatar.noTop {
+    margin-top: 0;
+}

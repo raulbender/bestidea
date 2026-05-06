@@ -1,0 +1,59 @@
+:root {
+    /* --- BRAND COLORS --- */
+    --primary: #f1c40f;
+    --primary-dark: #d4ac0d;
+    --text-on-primary: #14171a; /* Essencial para legibilidade em botões */
+
+    /* --- BACKGROUNDS (Surfaces) --- */
+    --bg-page: #e6ecf0;    /* O fundo da aplicação */
+    --bg-main: #ffffff;    /* Fundo de cards/containers */
+    --bg-hover: #edf0f1;   /* Destaque ao passar o mouse */
+    --bg-badge: #f1f3f5;   /* Fundo de etiquetas/badges */
+    --bg-card-glass: rgba(238, 240, 231, 0.8);
+    --glass-border: rgba(230, 236, 240, 0.5);
+     /* Seu antigo bgCard com transparência */
+
+    /* --- TEXTS --- */
+    --text-main: #14171a;   /* Texto principal (antigo textPrimary) */
+    --text-muted: #657786;  /* Textos secundários, datas, legendas */
+    --text-error: #ffffff;  /* Texto que vai dentro de alertas de erro */
+
+    /* --- BORDERS & ACCENTS --- */
+    --border-color: #e6ecf0;
+    --ring-color: rgba(241, 196, 15, 0.4); /* Cor de foco para acessibilidade */
+
+    /* --- SEMANTIC (Feedbacks) --- */
+    --error: #e74c3c;
+    --ring-error: rgba(231, 76, 60, 0.2);
+    --success: #2ecc71;
+    --info: #3498db;
+    --warning: #f39c12; /* Adicionado para alertas de atenção */
+
+    --white: #ffffff;
+    --black: #000000;
+
+    --shadow-color: rgba(0, 0, 0, 0.1);
+
+    /* --- OPACITIES --- */
+    --opacity-muted: 0.6;
+    --opacity-hover: 1;
+}
+
+/* --- DARK MODE (Mapeamento Inteligente) --- */
+[data-theme='dark'] {
+    --bg-page: #121212;
+    --bg-main: #1e1e1e;
+    --bg-hover: #2c2c2c;
+    --bg-badge: #333333;
+    
+    --text-main: #d6dbd5;
+    --text-muted: #8899a6;
+    
+    --border-color: #38444d;
+    --ring-color: rgba(241, 196, 15, 0.2);
+    --ring-error: rgba(231, 76, 60, 0.4);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+
+    --bg-card-glass: rgba(16, 18, 20, 0.75); 
+    --glass-border: rgba(255, 255, 255, 0.1);
+}

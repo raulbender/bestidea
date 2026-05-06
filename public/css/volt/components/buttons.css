@@ -1,0 +1,97 @@
+/* ./public/css/volt/components/buttons.css */
+
+/* --- BASE DO BOTÃO --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast) var(--ease-out);
+    border: 1px solid transparent;
+    font-size: var(--font-size-base);
+    line-height: var(--line-h--line-height-tight);
+    outline: none;
+}
+
+/* Estado de Foco (Acessibilidade Gringa) */
+.btn:focus-visible {
+    box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+}
+
+/* --- VARIANTES DE CORES --- */
+
+/* Primary: O botão de ação principal */
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--text-on-primary);
+    border-color: var(--primary-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Outline: Para ações secundárias */
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.btn-outline:hover {
+    background-color: var(--bg-hover);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+}
+
+/* Ghost: Para opções discretas ou menus */
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+}
+
+.btn-ghost:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-main);
+}
+
+/* Danger: Ações destrutivas */
+.btn-danger {
+    background-color: var(--error);
+    color: var(--text-error);
+}
+
+.btn-danger:hover {
+    filter: brightness(0.9);
+    box-shadow: var(--shadow-sm);
+}
+
+/* --- UTILITÁRIOS DE BOTÃO (Opcionais) --- */
+.btn-full { width: 100%; }
+
+.btn-sm { 
+    padding: var(--space-1) var(--space-3); 
+    font-size: var(--font-size-sm); 
+}
+
+.wrapper-trigger {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-full);
+    transition: background var(--transition-fast) var(--ease-out);
+}
+
+.wrapper-trigger:hover {
+    background: var(--shadow-color);
+}

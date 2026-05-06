@@ -1,0 +1,49 @@
+/* ./public/css/volt/base/layout.css */
+
+/* O Container principal que centraliza o conteúdo */
+.container {
+    width: 100%;
+    max-width: var(--container-xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+}
+
+/* Wrapper principal que respeita a altura da Navbar */
+.content-wrapper {
+    margin-top: var(--nav-height);
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-12);
+    min-height: calc(100vh - var(--nav-height));
+}
+
+/* Sistema de Grid Simples (Layout de Duas Colunas para o Bananaclub) */
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--layout-gap); /* Usando o token de gap */
+}
+
+/* Responsividade: Desktop ganha Sidebar lateral */
+@media (min-width: 1024px) {
+    .layout-grid {
+        /* Sidebar definida pelo token + Conteúdo flexível */
+        grid-template-columns: var(--sidebar-width) 1fr; 
+    }
+}
+
+/* Layout de Coluna Única Centralizada (Ótimo para o Feed principal ou Telas de Foco) */
+.layout-single {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: var(--container-md); /* Largura ideal para leitura e foco */
+    margin: 0 auto;   /* Centraliza na tela */
+}
+
+/* Seção de Conteúdo Centralizado (Foco em Leitura/Timeline) */
+.content-main {
+    max-width: var(--container-md);
+    width: 100%;
+}

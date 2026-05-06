@@ -1,0 +1,23 @@
+:root {
+    --radius-none: 0px;
+    --radius-sm: 0.125rem; /* 2px */
+    --radius-base: 0.25rem; /* 4px */
+    --radius-md: 0.375rem; /* 6px */
+    --radius-lg: 0.5rem;   /* 8px */
+    --radius-xl: 0.75rem;  /* 12px */
+    --radius-2xl: 1rem;    /* 16px */
+    --radius-full: 9999px; /* O círculo perfeito */
+
+    /* Box Shadows (Tokens de Elevação) */
+    --shadow-sm: 0 1px 2px 0 var(--shadow-color);
+    --shadow-base: 0 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color);
+    --shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+    --shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+
+    /* Efeitos de Vidro (Glassmorphism) */
+    --blur-md: 8px;
+    --blur-lg: 16px;
+
+    /* ... outros tokens ... */
+    --ring-width: 3px;
+}

@@ -1,0 +1,105 @@
+.volt-alert {
+    position: fixed;
+    top: var(--space-5);
+    right: var(--space-4);
+    left: var(--space-4);    
+    width: 90%; /* Ocupa 90% da largura em telas pequenas */
+    min-width: 280px;
+    max-width: var(--container-sm, 400px);
+    
+    
+    /* Superfície e Bordas */
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-left: var(--space-1) solid var(--border-color);
+    border-radius: var(--radius-md);
+    
+    /* Elevação e Profundidade */
+    box-shadow: var(--shadow-lg);
+    
+    display: flex;
+    align-items: center;
+    padding: var(--space-4);
+    z-index: 9999;
+    
+    /* Animação integrada com nosso Core */
+    animation: voltAlertSlideIn var(--transition-normal) var(--ease-out) forwards;
+}
+@media (min-width: 768px) {
+    .volt-alert {
+        width: auto;
+        left: auto;
+        right: var(--space-5);
+    }
+}
+
+/* Variantes Semânticas (A alma do feedback) */
+.volt-alert-success { 
+    border-left-color: var(--success); 
+}
+.volt-alert-success .alert-icon { color: var(--success); }
+
+.volt-alert-error { 
+    border-left-color: var(--error); 
+}
+.volt-alert-error .alert-icon { color: var(--error); }
+
+.volt-alert-info { 
+    border-left-color: var(--info); 
+}
+.volt-alert-info .alert-icon { color: var(--info); }
+
+.volt-alert-warning { 
+    border-left-color: var(--warning); 
+}
+.volt-alert-warning .alert-icon { color: var(--warning); }
+
+/* Elementos Internos */
+.alert-icon { 
+    font-size: var(--font-size-lg); 
+    margin-right: var(--space-4); 
+    flex-shrink: 0;
+}
+
+.alert-content strong { 
+    display: block; 
+    margin-bottom: var(--space-1);
+    color: var(--text-main);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
+}
+
+.alert-content p { 
+    margin: 0; 
+    font-size: var(--font-size-sm); 
+    color: var(--text-muted); 
+    line-height: var(--line-height-snug);
+}
+
+.alert-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: var(--font-size-lg);
+    color: var(--text-muted);
+    cursor: pointer;
+    opacity: var(--opacity-muted);
+    transition: opacity var(--transition-fast) var(--ease-out);
+    padding: var(--space-1);
+}
+
+.alert-close:hover {
+    opacity: var(--opacity-hover);
+}
+
+/* Animação Exclusiva de Entrada Lateral */
+@keyframes voltAlertSlideIn {
+    from { 
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to { 
+        opacity: var(--opacity-hover);
+        transform: translateX(0);
+    }
+}

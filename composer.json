@@ -1,0 +1,51 @@
+{
+    "name": "bestidea/app",
+    "description": "Best Idea - A Brain Storming Tool Powered by Volt R² Framework.",
+    "require": {
+        "php": ">=8.2",
+        "spiral/roadrunner-http": "^3.3",
+        "nyholm/psr7": "^1.8",
+        "stripe/stripe-php": "^19.4",
+        "google/apiclient": "^2.19",
+        "vlucas/phpdotenv": "^5.6",
+        "sentry/sdk": "^4.0"
+    },
+    "authors": [
+        {"name": "Raul Bender",
+         "email": "me@raulbender.dev"}
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/",
+            "Framework\\": "Framework/"
+        },
+        "files": [
+        "Framework/Utils/Helpers.php",
+        "App/Utils/Constants.php"
+    ]
+    },    
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\App\\": "App/Tests/",
+            "Tests\\Framework\\": "Framework/Tests/"
+        }
+    },
+    "require-dev": {
+        "spiral/roadrunner-cli": "^2.6",
+        "phpunit/phpunit": "^10",
+        "phpstan/phpstan": "^1.10",
+        "friendsofphp/php-cs-fixer": "^3.94"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2.30"
+        },
+        "allow-plugins": {
+            "spiral/roadrunner-cli": true
+        }
+    },
+    "suggest": {
+        "ext-redis": "Necessário para utilizar o componente de Redis do Framework"
+    }
+    
+}

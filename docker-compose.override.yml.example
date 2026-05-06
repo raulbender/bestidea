@@ -1,0 +1,9 @@
+services:
+  app:
+    environment:
+      - RR_HTTP_POOL_DEBUG=true
+      - RR_HTTP_POOL_NUM_WORKERS=1
+      - RR_HTTP_POOL_SUPERVISOR_MAX_WORKER_MEMORY=512
+      - RR_HTTP_READ_TIMEOUT=3600s
+      - RR_HTTP_WRITE_TIMEOUT=3600s
+      - RR_HTTP_IDLE_TIMEOUT=3600s

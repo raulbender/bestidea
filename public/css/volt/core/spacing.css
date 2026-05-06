@@ -1,0 +1,36 @@
+:root {
+    --space-0: 0px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-9: 36px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-20: 80px;
+
+    /* Tokens Semânticos Baseados na Escala */
+    --nav-height: var(--space-16); /* 64px */
+    --container-padding: var(--space-4); /* 16px */
+    --container-xl: 1200px;
+    --container-md: 800px;
+    --container-sm: 600px;
+
+    /* ARCHITECTURE TOKENS */
+    --sidebar-width: 280px;      /* Largura fixa da sua coluna lateral */
+    --layout-gap: var(--space-6); /* Espaço entre as colunas */
+
+    /* COMPONENT SIZES */
+    --nav-badge-max-width: 180px;
+    --nav-badge-max-width-mobile: 120px;
+    --dropdown-min-width: 200px;
+
+    /* BREAKPOINT TOKENS (Apenas como referência mental, CSS Variables 
+       não funcionam dentro de @media queries nativamente, mas usamos 
+       comentários para manter o padrão) */
+    /* --breakpoint-lg: 1024px; */
+}

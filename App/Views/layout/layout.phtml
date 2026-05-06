@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="<?= $baseDTO->language ?>">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= __('layout.nav_brand') ?></title>
+    
+    <link rel="stylesheet" href="/css/volt/base/layout.css">
+    <link rel="stylesheet" href="/css/volt/base/debug.css">
+    <link rel="stylesheet" href="/css/volt/base/reset.css">
+    <link rel="stylesheet" href="/css/volt/core/colors.css">
+    <link rel="stylesheet" href="/css/volt/core/typography.css">
+    <link rel="stylesheet" href="/css/volt/core/spacing.css">
+    <link rel="stylesheet" href="/css/volt/core/shapes.css">
+    <link rel="stylesheet" href="/css/volt/core/animations.css">
+    <link rel="stylesheet" href="/css/volt/components/navbar.css">
+    <link rel="stylesheet" href="/css/volt/components/alerts.css">
+    <link rel="stylesheet" href="/css/volt/components/buttons.css">
+    <link rel="stylesheet" href="/css/volt/components/dropdowns.css">
+    <link rel="stylesheet" href="/css/volt/components/forms.css">
+    <link rel="stylesheet" href="/css/volt/components/icons.css">    
+    <link rel="stylesheet" href="/css/volt/components/avatars.css">
+    <link rel="stylesheet" href="/css/volt/modules/timeline.css">
+    
+    <script>
+        window.FrameworkConfig = {
+            debugMode: <?= ($baseDTO->debugModeOn ?? false) ? 'true' : 'false' ?>,
+            i18n: {
+                themeDark: "<?= __('layout.theme_dark') ?>",
+
+                themeLight: "<?= __('layout.theme_light') ?>"
+            }
+        };
+    </script>
+
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('volt_theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+<script src="/js/volt/components/alerts.js" defer></script>
+<script src="/js/volt/components/dropdowns.js" defer></script>
+<script src="/js/volt/modules/theme.js" defer></script>
+<script src="/js/volt/framework.js" defer></script>
+
+</head>
+
+<body class="<?= $baseDTO->bodyClass ?> <?= $baseDTO->debugModeOn ? 'debugMode' : '' ?>">
+    <?php if (!($baseDTO->navHidden ?? false)): ?>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-left">
+
+                    <?php if (isDevEnvironment()): ?>
+                        <form action="/toggleDebugMode" method="POST" style="display: inline;">
+                            <?= csrfInput($baseDTO->csrf_token) ?>
+                            <button type="submit" class="nav-debug-mode-item" title="<?= __('layout.debug_title') ?>">
+                                <?= $baseDTO->debugModeOn ? '🕶️' : '🕵️‍♂️' ?>
+                            </button>
+                        </form>
+                    <?php endif; ?>
+
+                    <div class="wrapper-trigger" onclick="VoltDropdown.toggle('site-menu', event)">
+                        <?= icon('appmenu') ?>
+                    </div>
+                    <?=  partial('dropdown_main') ?>
+                </div>
+
+                <div class="nav-center">
+                    <a href="/" class="nav-logo">  <?= __('layout.nav_brand') ?>  </a>
+                </div>
+
+                <div class="nav-right">
+                    <?php if ($baseDTO->id > -1): ?>   
+
+                        <div class="wrapper-trigger" onclick="VoltDropdown.toggle('user-menu', event)">
+
+                            <span class="nav-user-badge"><?= e($baseDTO->username) ?></span>
+
+                            <div class="volt-avatar noTop"><?= $baseDTO->avatar ?></div>
+                            <?= icon('arrowdown') ?>
+                           <?= partial('dropdown_user') ?>
+                         </div>
+                    
+                    <?php endif; ?>
+                </div>
+            </div>
+        </nav>
+    <?php endif; ?>
+
+    <main class="content-wrapper">
+        <?= $mainViewContent ?>
+    </main>
+</body>
+
+</html>

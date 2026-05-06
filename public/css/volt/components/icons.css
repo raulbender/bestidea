@@ -1,0 +1,14 @@
+.icon-volt {
+    stroke: var(--text-muted);
+    transition: stroke var(--transition-fast) var(--ease-out);
+    vertical-align: middle;
+}
+
+.chevron-icon {
+    opacity: var(--opacity-muted);
+}
+
+
+.iconError {
+    stroke: var(--error);
+}

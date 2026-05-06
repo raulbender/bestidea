@@ -1,0 +1,58 @@
+.form-group {
+    margin-bottom: var(--space-4);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-main);
+    font-size: var(--font-size-sm);
+}
+
+.form-control {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    transition: all var(--transition-fast) var(--ease-out);
+    outline: none;
+}
+
+/* Estado de Foco (O segredo da acessibilidade) */
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+}
+
+/* Estilização do Placeholder */
+.form-control::placeholder {
+    color: var(--text-muted);
+    opacity: var(--opacity-muted);
+}
+
+/* Estados de Erro */
+.form-control.is-invalid {
+    border-color: var(--error);
+}
+
+.form-control.is-invalid:focus {
+    box-shadow: 0 0 0 var(--ring-width) var(--ring-error);
+}
+
+/* Textareas: Impedir que quebrem o layout horizontalmente */
+textarea.form-control {
+    min-height: 8rem;
+    resize: vertical;
+}
+
+/* Campos Desabilitados */
+.form-control:disabled {
+    background-color: var(--bg-page);
+    cursor: not-allowed;
+    opacity: var(--opacity-muted);
+}

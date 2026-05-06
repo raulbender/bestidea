@@ -1,0 +1,24 @@
+# Usa a imagem CLI pura (sem Apache)
+FROM php:8.2-cli
+
+# Instala ferramentas do sistema e extensões do PHP
+# O 'sockets' é a ponte de comunicação do RoadRunner
+RUN apt-get update && apt-get install -y \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql sockets \
+    && pecl install xdebug redis \
+    && docker-php-ext-enable xdebug redis sockets
+
+# Configura o Xdebug para o VS Code
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# Define a pasta de trabalho
+WORKDIR /var/www/html
+
+# Expõe a porta que o RoadRunner vai usar (8080)
+EXPOSE 8080
+
+# Comando para dar a partida no motor quando o container subir
+CMD ["./rr", "serve", "-c", ".rr.yaml"]

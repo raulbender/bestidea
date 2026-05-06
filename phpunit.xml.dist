@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+         bootstrap="Framework/Tests/bootstrap.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>Framework/Tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>Framework/Tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="DB_HOST" value="db" force="true"/>
+        <env name="DB_NAME" value="volt_db_test" force="true"/>
+        <env name="DB_USER" value="root" force="true"/>
+        <env name="DB_PASS" value="root1234" force="true"/>
+        <env name="TOKEN" value="1234" force="true"/>
+        <env name="PEPPER" value="1234" force="true"/>
+        <env name="ADMIN_PATH" value="/admin" force="true"/>
+        <env name="ADMIN_EMAIL" value="admin@example.com" force="true"/>
+        <env name="GEMINI_KEY" value="gemini_key" force="true"/>
+        <env name="STRIPE_PUBLISHABLE_KEY" value="stripe_publishable_key" force="true"/>
+        <env name="STRIPE_SECRET_KEY" value="stripe_secret_key" force="true"/>
+        <env name="WHSEC" value="webhook_secret" force="true"/>
+        <env name="REDIS_HOST" value="redis" force="true"/>
+        <env name="GG_ID" value="google_client_id" force="true"/>
+        <env name="GG_KEY" value="google_client_secret" force="true"/>
+        <env name="GG_REDIRECT_URI" value="http://localhost:8080/login/google/callback" force="true"/>
+        <env name="RESEND_API_KEY" value="resend_api_key" force="true"/>
+    </php>    
+</phpunit>
