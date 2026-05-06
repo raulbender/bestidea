@@ -11,6 +11,7 @@ use Framework\Console\Commands\MakeMigration;
 use Framework\Console\Commands\Migrate;
 use Framework\Console\Commands\Rollback;
 use Framework\Console\Commands\TestMail;
+use Framework\Console\Commands\MakeContextCss;
 use Framework\Container;
 
 class Kernel
@@ -28,6 +29,7 @@ class Kernel
             'test:mail' => TestMail::class,
             'make:context' => MakeContext::class,
             'make:total' => MakeContextTotal::class,
+            'make:csscontext' => MakeContextCss::class,
         ];
     }
 

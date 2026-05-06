@@ -31,6 +31,7 @@ Thumbs.db
 # --- Ignore context_ai.xml for now, as it contains generated code ---
 context_ai.xml
 context_total.xml
+context_ai_css.xml
 
 # --- Ignore override for development environment ---
 docker-compose.override.yml
