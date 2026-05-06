@@ -65,21 +65,6 @@ abstract class BaseController {
     }
 
 
-    // protected function render(string $view, string $layout = 'layout/layout', object $data = null, bool $isFramework = false): void {
-    //     $baseDTO = $this->baseDTO;
-    //     self::$currentDTO = $this->baseDTO;
-    //     self::$currentViewDir = dirname($view) !== '.' ? dirname($view) . '/' : '';
-    //     if ($isFramework) {
-    //         $viewFullPath = __DIR__ . '/Views/' . $view . ".phtml";
-    //         $mainViewContent = $this->loadViewContent($viewFullPath, $data);
-    //         require __DIR__ . '/Views/' . $layout . ".phtml";
-    //     } else {
-
-    //         $viewFullPath = Container::$config->viewsPath . $view . ".phtml";
-    //         $mainViewContent = $this->loadViewContent($viewFullPath, $data);
-    //         require Container::$config->viewsPath . $layout . ".phtml";
-    //     }
-    // }
     /**
      * Renderiza uma visão e injeta o objeto DTO padrão no layout.
      * * @param string $view Caminho da view (ex: 'user/profile').
@@ -96,10 +81,8 @@ abstract class BaseController {
             ? __DIR__ . '/Views/' . $view . ".phtml"
             : Container::$config->viewsPath . $view . ".phtml";
 
-        // Captura apenas o conteúdo da view interna
         $mainViewContent = $this->loadViewContent($viewPath, $data);
 
-        // Agora capturamos o LAYOUT inteiro (que faz o require do $mainViewContent)
         $layoutPath = $isFramework
             ? __DIR__ . '/Views/' . $layout . ".phtml"
             : Container::$config->viewsPath . $layout . ".phtml";
@@ -108,11 +91,18 @@ abstract class BaseController {
         require $layoutPath;
         $fullHtml = ensureString(ob_get_clean());
 
-        // Retorna o DTO em vez de dar echo ou require direto[cite: 11]
         return new ResponseDTO(
             statusCode: 200,
             headers: ['Content-Type' => 'text/html; charset=UTF-8'],
             body: $fullHtml
+        );
+    }
+
+    protected function json(mixed $data, int $statusCode = 200): ResponseDTO {
+        return new ResponseDTO(
+            statusCode: $statusCode,
+            headers: ['Content-Type' => 'application/json'],
+            body: (string) json_encode($data)
         );
     }
 }
