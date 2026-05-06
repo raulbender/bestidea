@@ -58,7 +58,7 @@ class TranslatorTest extends TestCase
         $translator = new Translator($request);
 
         // Accessing 'layout.nav_brand' inside en.php
-        $this->assertEquals('⚡Volt R²', $translator->get('layout.nav_brand'));
+        $this->assertEquals('💡 BestIdea', $translator->get('layout.nav_brand'));
     }
 
     /**

@@ -12,12 +12,12 @@ return [
     ],
     'layout' => [
         'debug_title' => 'Alternar Raio-X',
-        'menu_about' => 'Sobre Volt R²',
+        'menu_about' => 'Sobre BestIdea',
         'theme_dark' => 'Escuro 🌙 ',
         'theme_light' => 'Claro ☀️',
         'menu_profile' => 'Meu Perfil',
         'menu_logoff' => 'Desconectar',
-        'nav_brand' => '⚡Volt R²',
+        'nav_brand' => '💡 BestIdea',
         'sign_in' => 'Entrar',
     ],
 

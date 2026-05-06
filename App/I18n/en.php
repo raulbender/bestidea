@@ -12,12 +12,12 @@ return [
     ],
     'layout' => [
         'debug_title' => 'Toggle X-Ray',
-        'menu_about' => 'About Volt R²',
+        'menu_about' => 'About BestIdea',
         'theme_dark' => 'Dark 🌙',
         'theme_light' => 'Light ☀️',
         'menu_profile' => 'My Profile',
         'menu_logoff' => 'Log Out',
-        'nav_brand' => '⚡Volt R²',
+        'nav_brand' => '💡 BestIdea',
         'sign_in' => 'Sign In',
     ],
     ];
