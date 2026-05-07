@@ -10,6 +10,12 @@ interface FeedRepositoryInterface
      * @return array<int, array<string, mixed>> 
      */
     public function findAllWithAuthors(): array;
+    
+    /** * Busca os comentários de um conjunto de ideias.
+    * @param array<int> $ids 
+    * @return array<int, array<string, mixed>> 
+    */
+    public function findCommentsByIdeaIds(array $ids): array;
 
     /** * Registra uma nova ideia no diário de bordo.
      * @param IdeaEntity $idea 
