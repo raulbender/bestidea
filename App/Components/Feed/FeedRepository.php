@@ -24,7 +24,7 @@ class FeedRepository implements FeedRepositoryInterface {
         if (empty($ids)) return [];
 
         return $this->db->table('comments')
-            ->select('comments.*', 'authors.name AS author_name')
+            ->select('comments.*', 'authors.name AS author_name', 'authors.avatar AS author_avatar')
             ->join('authors', 'comments.author_id', '=', 'authors.id')
             ->whereIn('comments.idea_id', $ids)
             ->orderBy('comments.created_at')

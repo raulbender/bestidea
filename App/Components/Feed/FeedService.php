@@ -12,7 +12,7 @@ class FeedService implements FeedServiceInterface {
 
     public function getTimeline(): array {
         /** @var array <IdeaEntity> $ideas */
-        $ideas = $this->repository->findAllWithAuthors(); //
+        $ideas = $this->repository->findAllWithAuthors(); 
 
         if (empty($ideas)) return [];
 
@@ -24,15 +24,17 @@ class FeedService implements FeedServiceInterface {
         $commentsGrouped = [];
         foreach ($allComments as $comment) {
             $commentsGrouped[$comment->idea_id][] = [
-                'author'  => __($comment->author_name), // Tradução
+                'author'  => __($comment->author_name),
+                'avatar'  => $comment->author_avatar,
                 'content' => $comment->content,
+                'created_at' => $comment->created_at,
                 'rating'  => (int)$comment->rating
             ];
         }
 
         foreach ($ideas as $idea) {
-            $idea->author_name = __($idea->author_name); //
-            $idea->comments = $commentsGrouped[$idea->id] ?? []; //
+            $idea->author_name = __($idea->author_name); 
+            $idea->comments = $commentsGrouped[$idea->id] ?? []; 
         }
 
         return $ideas;

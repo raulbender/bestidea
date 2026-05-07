@@ -45,11 +45,19 @@ function renderFeed(ideas) {
                 <div class="text-main mb-4">${idea.content}</div>
                 
                 <section class="feed-comments-box rounded-md bg-subtle p-2">
-                    ${idea.comments.map(comment => `
-                        <div class="feed-comment-item mb-1 text-sm">
-                            <span class="font-bold text-primary">${comment.author}:</span> 
-                            <span class="text-main">${comment.content}</span>
-                            <span class="ml-2">${renderStars(comment.rating)}</span>
+                    ${(idea.comments || []).map(comment => `
+                        <div class="feed-comment-item mb-3 text-sm flex gap-2">
+                            <div class="volt-avatar-xs">
+                                ${comment.avatar ? `<img src="${comment.avatar}">` : comment.author[0]}
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between">
+                                    <span class="font-bold text-primary">${comment.author}</span>
+                                    <span class="text-muted text-xs">${comment.created_at}</span>
+                                </div>
+                                <p class="text-main">${comment.content}</p>
+                                <div class="mt-1">${renderStars(comment.rating)}</div>
+                            </div>
                         </div>
                     `).join('')}
                 </section>

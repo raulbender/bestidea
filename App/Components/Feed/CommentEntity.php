@@ -13,4 +13,5 @@ class CommentEntity
     public ?int $rating = null;
     public ?string $created_at = null;
     public ?string $author_name = null;
+    public ?string $author_avatar = null;
 }
