@@ -69,7 +69,8 @@ class PdoAdapter implements DatabaseInterface
         $stmt = $this->pdo->prepare($sql);
 
         foreach ($data as $key => $value) {
-            $stmt->bindValue($key, $value);
+            $parameter = is_int($key) ? $key + 1 : $key;
+            $stmt->bindValue($parameter, $value);
         }
 
         $stmt->execute();
