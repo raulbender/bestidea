@@ -8,6 +8,26 @@ async function loadFeed() {
     }
 }
 
+function formatRelativeTime(dateString) {
+    // Tratamos a string para garantir compatibilidade com o construtor Date
+    const past = new Date(dateString.replace(' ', 'T'));
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - past) / 1000);
+
+    if (diffInSeconds < 60) return "agora"; // Simplificando a i18n por enquanto
+    
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) return `${diffInMinutes}min`;
+    
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours}h`;
+    
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `${diffInDays}d`;
+
+    return past.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace('.', '');
+}
+
 function renderStars(rating) {    
     const numericRating = parseInt(rating) || 0;    
     let starsHtml = '';
@@ -38,7 +58,7 @@ function renderFeed(ideas) {
                     <div class="volt-avatar-sm">${avatarContent}</div>
                     <div>
                         <div class="text-main font-bold">${idea.author_name}</div>
-                        <div class="text-muted text-sm">${idea.created_at}</div>
+                        <div class="text-muted text-sm">${formatRelativeTime(idea.created_at)}</div>
                     </div>
                 </header>
                 
@@ -53,7 +73,7 @@ function renderFeed(ideas) {
                             <div class="flex-1">
                                 <div class="flex justify-between">
                                     <span class="font-bold text-primary">${comment.author}</span>
-                                    <span class="text-muted text-xs">${comment.created_at}</span>
+                                    <span class="text-muted text-xs">${formatRelativeTime(comment.created_at)}</span>
                                 </div>
                                 <p class="text-main">${comment.content}</p>
                                 <div class="mt-1">${renderStars(comment.rating)}</div>
