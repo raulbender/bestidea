@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Framework\Console;
 
+use App\Console\Commands\SeedCommand;
 use Framework\Console\Commands\MakeContext;
 use Framework\Console\Commands\MakeContextTotal;
 use Framework\Console\Commands\MakeController;
@@ -30,6 +31,7 @@ class Kernel
             'make:context' => MakeContext::class,
             'make:total' => MakeContextTotal::class,
             'make:csscontext' => MakeContextCss::class,
+            'seed' => SeedCommand::class,
         ];
     }
 
