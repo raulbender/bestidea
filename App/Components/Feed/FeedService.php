@@ -28,7 +28,7 @@ class FeedService implements FeedServiceInterface {
                 'avatar'  => $comment->author_avatar,
                 'content' => $comment->content,
                 'created_at' => $comment->created_at,
-                'rating'  => (int)$comment->rating
+                'rating'     => (int) ($comment->rating ?? 0)                
             ];
         }
 

@@ -8,11 +8,11 @@ async function loadFeed() {
     }
 }
 
-function renderStars(rating) {
-    // Cria as 5 estrelas, pintando de dourado (classe text-primary) as que o rating alcança
+function renderStars(rating) {    
+    const numericRating = parseInt(rating) || 0;    
     let starsHtml = '';
     for (let i = 1; i <= 5; i++) {
-        const activeClass = i <= rating ? 'text-primary' : 'text-muted';
+        const activeClass = i <= numericRating ? 'star-primary' : 'star-muted';
         starsHtml += `<span class="${activeClass}">★</span>`;
     }
     return starsHtml;
