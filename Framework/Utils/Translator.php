@@ -7,7 +7,7 @@ namespace Framework\Utils;
 use Framework\Http\Request;
 use Framework\Http\ScopedService;
 
-class Translator implements ScopedService{
+class Translator implements ScopedService {
     /** @var array<string, array<string, string>> $messages */
     private array $messages = [];
     private string $locale;
@@ -19,7 +19,6 @@ class Translator implements ScopedService{
         $path = __DIR__ . "/../../App/I18n/{$this->locale}.php";
         $this->messages = file_exists($path) ? include $path : [];
     }
-
 
 
     public function language(): string {
@@ -39,18 +38,21 @@ class Translator implements ScopedService{
         return in_array($lang, $availableLocales) ? $lang : null;
     }
 
-    public function get(string $key): string {
 
+    /**
+     * @return string|array<string, mixed>
+     */
+    public function get(string $key): string|array {
         $keys = explode('.', $key);
         $result = $this->messages;
 
         foreach ($keys as $k) {
-            if (! isset($result[$k]) || ! is_array($result)) {
+            if (! isset($result[$k])) {
                 return $key;
             }
             $result = $result[$k];
         }
 
-        return is_string($result) ? $result : $key;
+        return (is_string($result) || is_array($result)) ? $result : $key;
     }
 }

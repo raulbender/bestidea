@@ -90,10 +90,9 @@ function partial(string $name, array $data = []): void {
  * Exemplo: __('layout.sign_in') ou __('error_page.message_404').
  * 3. Se precisar criar uma nova mensagem, invente uma chave lógica e passe-a aqui.
  */
-function __(string $key): string {
+function __(string $key): string|array { // Ajuste a tipagem de retorno
     return Container::resolve(Translator::class)->get($key);
 }
-
 
 /**
  * Escapa strings para evitar XSS em Views.
