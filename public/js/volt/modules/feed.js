@@ -1,6 +1,12 @@
 async function loadFeed() {
     try {
-        const response = await fetch('/api/ideas'); // Sua Rota A
+        // 1. Pegamos o idioma que está na URL atual (ex: 'pt' ou 'en')
+        // Uma forma simples é pegar o primeiro segmento após a barra
+        const lang = window.location.pathname.split('/')[1] || 'en';
+
+        // 2. Montamos a URL da API com o prefixo do idioma
+        const response = await fetch(`/${lang}/api/ideas`); 
+        
         const ideas = await response.json();
         renderFeed(ideas);
     } catch (error) {

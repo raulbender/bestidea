@@ -129,4 +129,16 @@ class Request implements ScopedService {
 
         return ensureJson($raw);
     }
+
+
+    /**
+     * Permite definir atributos personalizados na requisição (ex: parâmetros de rota).
+     */
+    public function setAttribute(string $key, mixed $value): void {
+        $this->server[$key] = $value;
+    }
+
+    public function getAttribute(string $key, mixed $default = null): mixed {
+        return $this->server[$key] ?? $default;
+    }
 }

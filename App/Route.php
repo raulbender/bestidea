@@ -25,11 +25,17 @@ class Route extends BaseRoute
         ];
 
         $this->routes['feed_api'] = [
-            'route' => '/api/ideas',
+            'route' => '/{lang}/api/ideas',
             'controller' => FeedController::class,
             'action' => 'getIdeasApi',
         ];
 
+        
+        $this->routes['feed_view'] = [
+            'route' => '/{lang}/feed',
+            'controller' => FeedController::class,
+            'action' => 'index',
+        ];
 
 
     }

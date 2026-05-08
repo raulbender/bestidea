@@ -5,12 +5,18 @@ declare(strict_types=1);
 use Framework\BaseController;
 use Framework\Container;
 use Framework\Utils\Translator;
+use App\Route;
+
+function route(string $name, array $params = []): string {
+    $router = Container::resolve(Route::class);
+    return $router->generateUrl($name, $params);
+}
+
 
 /** * Garante que a string seja um JSON válido e retorna o array.
  * @return array<string, mixed>
  */
-function ensureJson(mixed $input): array
-{
+function ensureJson(mixed $input): array {
     if (! is_string($input) || empty(trim($input))) {
         throw new \RuntimeException("Critical Error: Input is empty, expected JSON string.");
     }
@@ -31,8 +37,7 @@ function ensureJson(mixed $input): array
 /**
  * Busca variável de ambiente de forma segura.
  */
-function ensureEnv(string $key): string
-{
+function ensureEnv(string $key): string {
     $value = getenv($key);
 
     if ($value === false) {
@@ -45,8 +50,7 @@ function ensureEnv(string $key): string
 /**
  * Atalho para renderizar ícones SVG da pasta de views.
  */
-function icon(string $name): void
-{
+function icon(string $name): void {
     $path = Container::$config->viewsPath . "layout/icons/{$name}.phtml";
     if (file_exists($path)) {
         include $path;
@@ -58,8 +62,7 @@ function icon(string $name): void
  * @param string $name Nome do arquivo da partial (ex: 'components/button')
  * @param array<string, mixed> $data Dados passados para a partial
  */
-function partial(string $name, array $data = []): void
-{
+function partial(string $name, array $data = []): void {
     $viewsPath = Container::$config->viewsPath;
     $currentDir = BaseController::$currentViewDir;
 
@@ -87,8 +90,7 @@ function partial(string $name, array $data = []): void
  * Exemplo: __('layout.sign_in') ou __('error_page.message_404').
  * 3. Se precisar criar uma nova mensagem, invente uma chave lógica e passe-a aqui.
  */
-function __(string $key): string
-{
+function __(string $key): string {
     return Container::resolve(Translator::class)->get($key);
 }
 
@@ -97,15 +99,13 @@ function __(string $key): string
  * Escapa strings para evitar XSS em Views.
  * DICA PARA IA: Sempre use 'e()' ao imprimir dados do usuário no HTML.
  */
-function e(string $string): string
-{
+function e(string $string): string {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
 
 
 
-function e_strong(string $string): string
-{
+function e_strong(string $string): string {
     $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
     $result = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $string);
 
@@ -119,24 +119,21 @@ function e_strong(string $string): string
 /**
  * Retorna true se o ambiente for de desenvolvimento.
  */
-function isDevEnvironment(): bool
-{    
+function isDevEnvironment(): bool {
     return getenv('DEV_ENVIRONMENT') === 'true';
 }
 
 /**
  * Formata chave para PDO (ex: 'id' vira ':id').
  */
-function pdoKey(string $key): string
-{
+function pdoKey(string $key): string {
     return ":" . $key;
 }
 
 /**
  * Gera o campo hidden de CSRF para formulários.
  */
-function csrfInput(string $token): string
-{
+function csrfInput(string $token): string {
     return "<input type='hidden' name='_token' value='{$token}'>";
 }
 
@@ -144,8 +141,7 @@ function csrfInput(string $token): string
  * GUARDIÕES DE TIPO: Forçam a conversão e validam a integridade dos dados.
  * Use sempre que receber dados de fontes externas (Request/DB).
  */
-function ensureInt(mixed $value): int
-{
+function ensureInt(mixed $value): int {
     if (! is_numeric($value)) {
         throw new \RuntimeException("Integrity Error: Expected an integer, received." . gettype($value));
     }
@@ -153,8 +149,7 @@ function ensureInt(mixed $value): int
     return (int)$value;
 }
 
-function ensureString(mixed $value): string
-{
+function ensureString(mixed $value): string {
     if (! is_scalar($value) && ! is_null($value)) {
         throw new \RuntimeException("Integrity Error: Could not convert value to string.");
     }
@@ -168,8 +163,7 @@ function ensureString(mixed $value): string
 }
 
 
-function ensureStringOrNull(mixed $value): ?string
-{
+function ensureStringOrNull(mixed $value): ?string {
     if ($value === null) {
         return null;
     }
@@ -182,8 +176,7 @@ function ensureStringOrNull(mixed $value): ?string
 }
 
 
-function ensureBool(mixed $value): bool
-{
+function ensureBool(mixed $value): bool {
     if (is_bool($value)) {
         return $value;
     }

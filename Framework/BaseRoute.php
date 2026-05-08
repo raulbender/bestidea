@@ -9,6 +9,7 @@ use Framework\Extensions\GoogleLogin\GoogleLoginController;
 use Framework\Extensions\Payment\WebhookController;
 use Framework\Http\Request;
 use Framework\Http\ResponseDTO;
+use Framework\Utils\Translator;
 
 abstract class BaseRoute {
     /** @var array<array<string,string>> */
@@ -71,28 +72,66 @@ abstract class BaseRoute {
         $url = $this->getUrl();
 
         foreach ($this->getRoutes() as $key => $route) {
-            if ($url == $route['route']) {
+            $routePath = $route['route'];
+
+            // 1. A MÁGICA: Converte {lang} em uma expressão regular capturável
+            // Exemplo: "/{lang}/feed" vira "#^/(?P<lang>[^/]+)/feed$#"
+            $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[^/]+)', $routePath);
+            $pattern = "#^" . $pattern . "$#";
+
+            if (preg_match($pattern, $url, $matches)) {
+
+                            // 2. GUARDANDO OS PARÂMETROS: 
+                // Limpamos os matches para pegar apenas os que têm nome (como 'lang')
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+
+                // 2. INJEÇÃO NO REQUEST: Guarda cada parâmetro dentro do Request
+                foreach ($params as $param => $value) {
+                    $this->request->setAttribute((string)$param, $value);
+                }
 
                 $class = $route['controller'];
                 if (! class_exists($class)) {
                     throw new \Exception("Controller class [$class] not found!", 500);
                 }
+
                 $controller = Container::resolve($class);
                 $action = $route['action'];
+
                 if (! method_exists($controller, $action)) {
                     throw new \Exception("Action [$action] not found in the " . get_class($controller), 500);
                 }
-                // A MÁGICA ACONTECE AQUI:
-                // Capturamos o retorno do método (que agora é um ResponseDTO)
+
+
+
                 /** @var ResponseDTO $response */
                 $response = $controller->$action($this->request);
 
                 return $response;
             }
         }
-        http_response_code(404);
 
         throw new \Exception("Page not found!", 404);
+    }
+
+
+    public function generateUrl(string $name, array $params = []): string {
+        if (!isset($this->routes[$name])) {
+            throw new \Exception("Rota [$name] não encontrada!");
+        }
+
+        $url = $this->routes[$name]['route'];
+
+        // Se a rota pede {lang} e você não passou, o sistema se auto-ajuda
+        if (str_contains($url, '{lang}') && !isset($params['lang'])) {
+            $params['lang'] = Container::resolve(Translator::class)->language();
+        }
+
+        foreach ($params as $key => $value) {
+            $url = str_replace("{{$key}}", (string)$value, $url);
+        }
+
+        return $url;
     }
 
 

@@ -5,28 +5,28 @@ declare(strict_types=1);
 namespace Framework\Utils;
 
 use Framework\Http\Request;
+use Framework\Http\ScopedService;
 
-class Translator
-{
+class Translator implements ScopedService{
     /** @var array<string, array<string, string>> $messages */
     private array $messages = [];
     private string $locale;
 
-    public function __construct(Request $request)
-    {
-        $this->locale = $this->detectBrowserLanguage($request) ?: 'en';
+    public function __construct(Request $request) {
+        $this->locale = $request->getAttribute('lang')
+            ?: ($this->detectBrowserLanguage($request) ?: 'en');
 
         $path = __DIR__ . "/../../App/I18n/{$this->locale}.php";
         $this->messages = file_exists($path) ? include $path : [];
     }
 
-    public function language(): string
-    {
+
+
+    public function language(): string {
         return $this->locale;
     }
 
-    private function detectBrowserLanguage(Request $request): ?string
-    {
+    private function detectBrowserLanguage(Request $request): ?string {
         $acceptLanguage = $request->getHeader('Accept-Language');
 
         if (! $acceptLanguage) {
@@ -39,8 +39,8 @@ class Translator
         return in_array($lang, $availableLocales) ? $lang : null;
     }
 
-    public function get(string $key): string
-    {
+    public function get(string $key): string {
+
         $keys = explode('.', $key);
         $result = $this->messages;
 
