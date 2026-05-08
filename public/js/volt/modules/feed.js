@@ -56,7 +56,7 @@ function renderFeed(ideas) {
     app.innerHTML = ideas.map(idea => {
         // Garantimos que o avatar tenha pelo menos a primeira letra se estiver vazio
         const avatarInitial = idea.author_name ? idea.author_name[0].toUpperCase() : '?';
-        const avatarContent = idea.author_avatar ? `<img src="${idea.author_avatar}">` : avatarInitial;
+        const avatarContent = idea.author_avatar ? idea.author_avatar : avatarInitial;
 
         return `
         <article class="bg-main border rounded-lg shadow-sm mb-6 volt-animate"> 
@@ -75,7 +75,7 @@ function renderFeed(ideas) {
                     ${(idea.comments || []).map(comment => `
                         <div class="feed-comment-item mb-3 text-sm flex gap-2">
                             <div class="volt-avatar-xs">
-                                ${comment.avatar ? `<img src="${comment.avatar}">` : comment.author[0]}
+                                ${comment.avatar ? comment.avatar : comment.author[0]}
                             </div>
                             <div class="flex-1">
                                 <div class="flex justify-between">
