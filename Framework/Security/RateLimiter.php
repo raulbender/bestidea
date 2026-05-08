@@ -28,7 +28,6 @@ class RateLimiter
         }
 
         if ($currentCount > $limit) {
-            // Lançamos a exceção 429. O seu ErrorHandler vai capturar isso maravilhosamente bem.
             throw new Exception("Too Many Requests. Rate limit of {$limit} exceeded.", 429);
         }
     }
@@ -43,7 +42,7 @@ class RateLimiter
         $ip = $this->resolveClientIp($request);
         $key = "rate_limit:general:{$ip}";
         
-        $this->check($key, 15, 15);
+        $this->check($key, 60, 60);
     }
 
     /**
