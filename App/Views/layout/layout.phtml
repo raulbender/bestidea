@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="/css/volt/components/forms.css">
     <link rel="stylesheet" href="/css/volt/components/icons.css">    
     <link rel="stylesheet" href="/css/volt/components/avatars.css">
+
+    <script>
+        window.VoltI18n = {
+            lang: "<?= $baseDTO->language ?>",
+            translations: <?= json_encode(__('js')) ?>
+        };
+    </script>
     
     <script>
         window.FrameworkConfig = {

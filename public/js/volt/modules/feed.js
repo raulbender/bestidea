@@ -15,23 +15,24 @@ async function loadFeed() {
 }
 
 function formatRelativeTime(dateString) {
-    // Tratamos a string para garantir compatibilidade com o construtor Date
     const past = new Date(dateString.replace(' ', 'T'));
     const now = new Date();
     const diffInSeconds = Math.floor((now - past) / 1000);
 
-    if (diffInSeconds < 60) return "agora"; // Simplificando a i18n por enquanto
+    const currentLang = window.VoltI18n.lang || 'en';
+
+    if (diffInSeconds < 60) return window.VoltI18n.translations.now; 
     
     const diffInMinutes = Math.floor(diffInSeconds / 60);
-    if (diffInMinutes < 60) return `${diffInMinutes}min`;
+    if (diffInMinutes < 60) return `${diffInMinutes}${window.VoltI18n.translations.min}`;
     
     const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return `${diffInHours}h`;
+    if (diffInHours < 24) return `${diffInHours}${window.VoltI18n.translations.h}`;
     
     const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) return `${diffInDays}d`;
+    if (diffInDays < 7) return `${diffInDays}${window.VoltI18n.translations.d}`;
 
-    return past.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace('.', '');
+    return past.toLocaleDateString(currentLang, { day: '2-digit', month: 'short' }).replace('.', '');
 }
 
 function renderStars(rating) {    
