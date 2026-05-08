@@ -19,6 +19,14 @@ return [
         'menu_logoff' => 'Log Out',
         'nav_brand' => '💡 BestIdea',
         'sign_in' => 'Sign In',
+    ],    
+    'js' => [
+        'now' => 'now',
+        's' => 's',
+        'min' => 'min',
+        'h' => 'h',
+        'd' => 'd',
+        'error' => 'Error while navigating these waters',
     ],
     'author' => [
         'fruit' => [

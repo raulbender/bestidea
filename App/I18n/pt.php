@@ -20,6 +20,14 @@ return [
         'nav_brand' => '💡 BestIdea',
         'sign_in' => 'Entrar',
     ],
+    'js' => [
+        'now' => 'agora',
+        's' => 's',
+        'min' => 'min',
+        'h' => 'h',
+        'd' => 'd',
+        'error' => 'Erro ao navegar nessas águas',
+    ],
     'author' => [
         'fruit' => [
             'avocado' => 'Abacate Mentor',
