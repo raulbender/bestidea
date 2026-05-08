@@ -18,10 +18,10 @@ class Route extends BaseRoute
             'action' => 'index',
         ];
 
-        $this->routes['feed'] = [
-            'route' => '/feed',
-            'controller' => FeedController::class,
-            'action' => 'index',
+        $this->routes['home_about'] = [
+            'route' => '/{lang}/about',
+            'controller' => HomeController::class,
+            'action' => 'about',
         ];
 
         $this->routes['feed_api'] = [

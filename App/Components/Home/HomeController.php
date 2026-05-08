@@ -14,4 +14,10 @@ class HomeController extends BaseController
     {
       return $this->render('home/index');
     }
+
+    public function about(Request $request): ResponseDTO
+    {
+        return $this->render('home/about');
+    }
+    
 }
