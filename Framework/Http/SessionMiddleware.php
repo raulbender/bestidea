@@ -47,12 +47,12 @@ class SessionMiddleware implements MiddlewareInterface {
             $redis->set(
                 "session:" . $this->sessionId,
                 serialize($session->all()),
-                300 //7200
+                300 // (86400)24 hours
             );
 
             // Carimbamos o cookie no ResponseDTO que você acabou de criar![cite: 11, 16]
             $response->headers['Set-Cookie'] = sprintf(
-                "%s=%s; Path=/; HttpOnly; SameSite=Lax",
+                "%s=%s; Path=/; HttpOnly; SameSite=Lax; Max-Age=300",
                 self::COOKIE_NAME,
                 $this->sessionId
             );
