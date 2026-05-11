@@ -17,8 +17,9 @@ return [
         'theme_light' => 'Claro ☀️',
         'menu_profile' => 'Meu Perfil',
         'menu_logoff' => 'Desconectar',
-        'nav_brand' => '💡 BestIdea',
+        'nav_brand' => 'Best Idea 💡',
         'sign_in' => 'Entrar',
+        'new_idea_button' => 'Preciso de uma ideia!',
     ],
     'js' => [
         'now' => 'agora',

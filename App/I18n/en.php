@@ -17,8 +17,9 @@ return [
         'theme_light' => 'Light ☀️',
         'menu_profile' => 'My Profile',
         'menu_logoff' => 'Log Out',
-        'nav_brand' => '💡 BestIdea',
+        'nav_brand' => 'Best Idea 💡',
         'sign_in' => 'Sign In',
+        'new_idea_button' => 'I need an idea!',
     ],    
     'js' => [
         'now' => 'now',
