@@ -21,6 +21,15 @@ return [
         'sign_in' => 'Sign In',
         'new_idea_button' => 'I need an idea!',
     ],    
+    'rooms' => [
+        'title' => 'Idea Room',
+        'welcome_message' => 'Welcome to the idea room! Here, you can share your ideas and receive feedback from the community. Feel free to explore others\' ideas and contribute your thoughts.',
+        'create_button' => 'Create New Room',
+        'join_button' => 'Join Room',
+        'description_placeholder' => 'I need an idea for...',
+        'empty_message' => 'No idea rooms available at the moment. Be the first to create one!',
+        'advance_button' => 'Advance to the next stage',
+    ],
     'js' => [
         'now' => 'now',
         's' => 's',

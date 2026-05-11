@@ -21,6 +21,15 @@ return [
         'sign_in' => 'Entrar',
         'new_idea_button' => 'Preciso de uma ideia!',
     ],
+    'rooms' => [
+        'title' => 'Sala de Ideias',
+        'welcome_message' => 'Bem-vindo à sala de ideias! Aqui, você pode compartilhar suas ideias e receber feedback da comunidade. Sinta-se à vontade para explorar as ideias dos outros e contribuir com seus pensamentos.',
+        'create_button' => 'Criar Nova Sala',
+        'join_button' => 'Entrar na Sala',
+        'description_placeholder' => 'Eu preciso de uma ideia para...',
+        'empty_message' => 'Nenhuma sala de ideias disponível no momento. Seja o primeiro a criar uma!',
+        'advance_button' => 'Avançar para a próxima etapa',
+    ],
     'js' => [
         'now' => 'agora',
         's' => 's',
