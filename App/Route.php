@@ -6,12 +6,11 @@ namespace App;
 
 use App\Components\Home\HomeController;
 use App\Components\Feed\FeedController;
+use App\Components\Room\RoomController;
 use Framework\BaseRoute;
 
-class Route extends BaseRoute
-{
-    protected function initRoutes(): void
-    {
+class Route extends BaseRoute {
+    protected function initRoutes(): void {
         $this->routes['home'] = [
             'route' => '/',
             'controller' => HomeController::class,
@@ -30,13 +29,17 @@ class Route extends BaseRoute
             'action' => 'getIdeasApi',
         ];
 
-        
+
         $this->routes['feed_view'] = [
             'route' => '/{lang}/feed',
             'controller' => FeedController::class,
             'action' => 'index',
         ];
 
-
+        $this->routes['room_create'] = [
+            'route' => '/{lang}/room',
+            'controller' => RoomController::class,
+            'action' => 'index',
+        ];
     }
 }
