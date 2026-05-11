@@ -50,10 +50,17 @@ function ensureEnv(string $key): string {
 /**
  * Atalho para renderizar ícones SVG da pasta de views.
  */
-function icon(string $name): void {
-    $path = Container::$config->viewsPath . "layout/icons/{$name}.phtml";
+function icon(string $name, string $class = ''): void {
+    // Caminho centralizado
+    $path = Container::$config->viewsPath .  "Icons/{$name}.phtml";
+
     if (file_exists($path)) {
+        // Se quisermos passar classes CSS para o SVG
+        echo "<span class='volt-icon {$class}'>";
         include $path;
+        echo "</span>";
+    } else {
+        echo "";
     }
 }
 
