@@ -7,6 +7,7 @@
         </div>
 
         <form action="<?= route('room_store') ?>" method="POST" class="create-room-form">
+             <?= csrfInput($baseDTO->csrf_token) ?>
             
             <div class="form-group mb-8">
                 <textarea 
