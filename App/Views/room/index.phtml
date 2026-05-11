@@ -6,7 +6,7 @@
             <p class="info-text text-main"><?= __('rooms.welcome_message') ?></p>
         </div>
 
-        <form action="<?= route('room_store') ?>" method="POST" class="create-room-form">
+        <form action="<?= route('room_create') ?>" method="POST" class="create-room-form">
              <?= csrfInput($baseDTO->csrf_token) ?>
             
             <div class="form-group mb-8">

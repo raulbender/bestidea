@@ -29,23 +29,28 @@ class Route extends BaseRoute {
             'action' => 'getIdeasApi',
         ];
 
-
         $this->routes['feed_view'] = [
             'route' => '/{lang}/feed',
             'controller' => FeedController::class,
             'action' => 'index',
         ];
 
-        $this->routes['room_create'] = [
+        $this->routes['room_index'] = [
             'route' => '/{lang}/room',
             'controller' => RoomController::class,
             'action' => 'index',
         ];
 
-        $this->routes['room_store'] = [
-            'route' => '/{lang}/room/{id}',
+        $this->routes['room_create'] = [
+            'route' => '/{lang}/room/create',
             'controller' => RoomController::class,
             'action' => 'create',
+        ];
+
+        $this->routes['room_view'] = [
+            'route' => '/{lang}/room/{uuid}',
+            'controller' => RoomController::class,
+            'action' => 'view',
         ];
     }
 }
