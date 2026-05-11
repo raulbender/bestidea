@@ -72,7 +72,7 @@ abstract class BaseController {
      * @param object|null $data Dados adicionais específicos para esta view.
      * @param bool $isFramework Define se a view deve ser buscada na pasta interna do Framework.
      */
-    protected function render(string $view, string $layout = 'layout/layout', ?object $data = null, bool $isFramework = false): ResponseDTO {
+    protected function render(string $view, ?object $data = null, string $layout = 'layout/layout', bool $isFramework = false): ResponseDTO {
         $this->baseDTO->csrf_token = $this->csrfService->getToken();
         self::$currentDTO = $this->baseDTO;
         $baseDTO = $this->baseDTO;

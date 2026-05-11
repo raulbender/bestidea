@@ -69,7 +69,7 @@ class AdminController extends BaseController
             }
         }
 
-        return $this->render('admin', 'layout_logs', $adminDTO, true);
+        return $this->render('admin', $adminDTO, 'layout_logs', true);
     }
 
     private function protectArea(): void
