@@ -1,86 +1,110 @@
-<div class="create-room-container">
-    <div class="welcome-balloon">
-        <p><?= __('rooms.welcome_message') ?></p>
+<div class="create-room-wrapper flex justify-center items-center">
+    <div class="create-room-container w-full mx-auto">
+        
+        <div class="info-card mb-8">
+            <h1 class="info-title font-bold mb-3"><?= __('rooms.welcome_title') ?></h1>
+            <p class="info-text text-main"><?= __('rooms.welcome_message') ?></p>
+        </div>
+
+        <form action="<?= route('room_store') ?>" method="POST" class="create-room-form">
+            
+            <div class="form-group mb-8">
+                <textarea 
+                    name="description" 
+                    id="room-description"
+                    class="idea-textarea w-full" 
+                    placeholder="<?= __('rooms.description_placeholder') ?>"
+                    required
+                ></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-large w-full">
+                    <?= __('rooms.advance_button') ?> 
+                    <span class="icon-arrow ml-2">→</span>
+                </button>
+            </div>
+        </form>
+
     </div>
-
-    <form action="<?= route('room_store') ?>" method="POST" class="create-room-form">
-        <div class="form-group">
-            <textarea 
-                name="description" 
-                class="form-control idea-textarea" 
-                placeholder="<?= __('rooms.description_placeholder') ?>"
-                required
-            ></textarea>
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn-new-idea btn-advance">
-                <?= __('rooms.advance_button') ?> 
-                <span>→</span>
-            </button>
-        </div>
-    </form>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('room-description').focus();
+    });
+</script>
+
 <style>
+    .create-room-wrapper {
+        min-height: 80vh;
+    }
+
     .create-room-container {
         max-width: 600px;
-        margin: var(--spacing-12) auto;
-        padding: 0 var(--spacing-4);
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-8);
     }
 
-    /* O Balão de Boas-vindas */
-    .welcome-balloon {
+    .info-card {
         background-color: var(--white);
-        padding: var(--spacing-6);
+        padding: var(--spacing-8);
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-md);
-        position: relative;
-        border: 2px solid var(--gray-100);
+        border-left: 6px solid var(--green-500);
     }
 
-    .welcome-balloon::after {
-        content: '';
-        position: absolute;
-        bottom: -15px;
-        left: 30px;
-        border-width: 15px 15px 0;
-        border-style: solid;
-        border-color: var(--white) transparent transparent;
-    }
-
-    .welcome-balloon p {
-        font-size: var(--font-size-lg);
-        color: var(--gray-800);
-        line-height: 1.5;
-        margin: 0;
-    }
-
-    /* A Caixa de Texto */
+    /* Textarea: Mesma fonte do site + Itálico */
     .idea-textarea {
-        width: 100%;
-        min-height: 150px;
-        padding: var(--spacing-4);
+        min-height: 200px;
+        padding: var(--spacing-6);
         border: 2px solid var(--gray-200);
         border-radius: var(--radius-md);
-        font-size: 1.1rem;
-        transition: border-color var(--transition-normal);
-        resize: vertical;
+        background-color: var(--white);
+        transition: all var(--transition-normal);
+        resize: none;
+        
+        /* HERANÇA DE FONTE */
+        font-family: var(--font-main);
+        font-size: var(--font-size-lg);
+        font-style: italic; /* O toque que você pediu */
+        color: var(--text-main);
     }
 
     .idea-textarea:focus {
         outline: none;
         border-color: var(--green-500);
         box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+        font-style: normal; /* Opcional: volta ao normal quando digita */
     }
 
-    /* Botão Avançar (Reutilizando seu estilo verde) */
-    .btn-advance {
-        width: 100%;
-        justify-content: center;
+    /* BOTÃO: Padronizado com a Index.phtml */
+    .btn-primary {
+        background-color: var(--primary); /* O amarelo da index */
+        color: var(--text-on-primary);
+        border: none;
+        padding: var(--spacing-4) var(--spacing-8);
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+        border-radius: var(--radius-md);
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-normal);
+        text-transform: uppercase;
+        letter-spacing: var(--tracking-wider);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .icon-arrow {
+        transition: transform var(--transition-normal);
+    }
+
+    .btn-primary:hover .icon-arrow {
+        transform: translateX(8px);
     }
 </style>
