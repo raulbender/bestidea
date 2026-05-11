@@ -12,7 +12,7 @@ class RoomController extends BaseController
 {
     public function index(Request $request): ResponseDTO
     {
-      return $this->render('room/index');
+      return $this->render('room/create');
     }
 
 }

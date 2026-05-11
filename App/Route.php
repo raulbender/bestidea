@@ -41,5 +41,11 @@ class Route extends BaseRoute {
             'controller' => RoomController::class,
             'action' => 'index',
         ];
+
+        $this->routes['room_store'] = [
+            'route' => '/{lang}/room/{id}',
+            'controller' => RoomController::class,
+            'action' => 'room',
+        ];
     }
 }
