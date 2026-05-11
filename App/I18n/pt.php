@@ -28,7 +28,7 @@ return [
         'join_button' => 'Entrar na Sala',
         'description_placeholder' => 'Eu preciso de uma ideia para...',
         'empty_message' => 'Nenhuma sala de ideias disponível no momento. Seja o primeiro a criar uma!',
-        'advance_button' => 'Avançar para a próxima etapa',
+        'advance_button' => 'Criar sala',
     ],
     'js' => [
         'now' => 'agora',

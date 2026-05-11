@@ -28,7 +28,7 @@ return [
         'join_button' => 'Join Room',
         'description_placeholder' => 'I need an idea for...',
         'empty_message' => 'No idea rooms available at the moment. Be the first to create one!',
-        'advance_button' => 'Advance to the next stage',
+        'advance_button' => 'Create room',
     ],
     'js' => [
         'now' => 'now',
