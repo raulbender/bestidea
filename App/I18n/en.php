@@ -22,7 +22,7 @@ return [
         'new_idea_button' => 'I need an idea!',
     ],    
     'rooms' => [
-        'title' => 'Idea Room',
+        'welcome_title' => 'Idea Room',
         'welcome_message' => 'Welcome to the idea room! Here, you can share your ideas and receive feedback from the community. Feel free to explore others\' ideas and contribute your thoughts.',
         'create_button' => 'Create New Room',
         'join_button' => 'Join Room',
@@ -34,6 +34,7 @@ return [
         'now' => 'now',
         's' => 's',
         'min' => 'min',
+
         'h' => 'h',
         'd' => 'd',
         'error' => 'Error while navigating these waters',
