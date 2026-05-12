@@ -29,70 +29,28 @@ class RoomController extends BaseController {
   }
 
 
-
-
-  // public function view(Request $request): ResponseDTO {
-  //   $uuid = $request->getAttribute('uuid');
-
-  //   if (!$uuid) {
-  //     return $this->redirect(route('home'));
-  //   }
-
-  //   $room = $this->service->getRoomByUuid($uuid);
-  //   if (!$room) {
-  //     throw new \RuntimeException("Sala não encontrada ou expirada.", 404);
-  //   }
-  //   $roomDTO = $this->makeRoomDTO($room);
-
-  //   return $this->render('room/view', $roomDTO);
-  // }
-
   public function view(Request $request): ResponseDTO {
     $uuid = $request->getAttribute('uuid');
 
-    if (!$uuid) {
-      return $this->redirect(route('home'));
-    }
-
     $room = $this->service->getRoomByUuid($uuid);
     if (!$room) {
-      throw new \RuntimeException("Sala não encontrada ou expirada.");
+      throw new \RuntimeException("Sala não encontrada ou expirada.", 404);
     }
 
-    // --- Lógica do Cookie (O Coração da Autenticação por Sala) ---
     $cookieName = "auth_room_{$uuid}";
-
-    // Verificamos se o navegador já enviou esse cookie
-    // Como você usa PSR-7, pegamos via getCookieParams da Request
-    $cookies = $request->getCookieParams(); // Se seu framework não tiver esse atalho, usamos $_COOKIE
+    $cookies = $request->getCookieParams();
     $authorId = $cookies[$cookieName] ?? null;
 
-    if (!$authorId) {
-      // Simulação: Sorteamos o autor ID 10
-      $authorId = 10;
+    $roomDTO = $this->service->getRoomDTO($uuid, $authorId);
 
-      // Criamos a resposta e anexamos o cookie
-      $roomDTO = $this->makeRoomDTO($room);
-      $response = $this->render('room/view', $roomDTO);
+    $response = $this->render('room/view', $roomDTO);
 
-      // Definimos o cookie para durar enquanto a sala existir (ou 24h)
-      // Set-Cookie: auth_room_uuid=10; Path=/; HttpOnly
-      $response->headers['Set-Cookie'] = $this->cookie("auth_room_{$uuid}", "10");
-
-      return $response;
+    if (!isset($cookies[$cookieName])) {
+      $response->headers['Set-Cookie'] = $this->cookie($cookieName, (string)$roomDTO->author_id);
     }
 
-    // Se já tem o cookie, apenas renderiza normalmente
-    $roomDTO = $this->makeRoomDTO($room);
-    return $this->render('room/view', $roomDTO);
+    return $response;
   }
 
 
-  private function makeRoomDTO(RoomEntity $room): RoomDTO {
-    return new RoomDTO(
-      uuid: $room->uuid,
-      description: $room->description,
-      expires_at: $room->expires_at . "Z"
-    );
-  }
 }

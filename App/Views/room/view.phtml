@@ -27,8 +27,8 @@
                 uuid: "<?= $data->uuid ?>",
                 msg_empty: "<?= __('rooms.without_ideas') ?>",
                 author: {
-                    name: "Capivara do Código", // Simulando busca do ID 10
-                    avatar: "C"
+                    name: "<?= $data->author ?>", 
+                    avatar: "<?= $data->avatar ?>"
                 }
             };
             (function() {

@@ -2,8 +2,11 @@
 
 namespace App\Components\Room;
 
+use App\Components\Author\AuthorRepositoryInterface;
+
 class RoomService implements RoomServiceInterface {
-    public function __construct(private RoomRepositoryInterface $roomRepository) {
+    public function __construct(private RoomRepositoryInterface $roomRepository,
+                                private AuthorRepositoryInterface $authorRepository) {
     }
 
 
@@ -45,4 +48,28 @@ class RoomService implements RoomServiceInterface {
 
         return $room;
     }
+
+
+public function getRoomDTO(string $uuid, ?string $authorId): RoomDTO 
+{
+    $room = $this->roomRepository->findByUuid($uuid);
+    if (!$room) {
+        throw new \RuntimeException("Sala não encontrada.", 404);
+    }
+
+    if ($authorId) {
+        $author = $this->authorRepository->getAuthorById((int)$authorId);
+    } else {
+        $author = $this->authorRepository->getRandomAuthor();
+    }    
+
+    return new RoomDTO(
+        uuid: $room->uuid,
+        description: $room->description,
+        expires_at: $room->expires_at . "Z",
+        author: __($author->name),
+        avatar: $author->avatar,
+        author_id: $author->id // Útil para o Controller carimbar o cookie
+    );
+}
 }

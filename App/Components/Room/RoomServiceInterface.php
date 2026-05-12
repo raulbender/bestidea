@@ -7,6 +7,7 @@ namespace App\Components\Room;
 interface RoomServiceInterface {
     public function createRoom(string $description): string;
     public function getRoomByUuid(string $uuid): ?RoomEntity;
+    public function getRoomDTO(string $uuid, ?string $authorId): RoomDTO;
 }
 
 
