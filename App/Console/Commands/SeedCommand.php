@@ -13,14 +13,30 @@ class SeedCommand implements CommandInterface
 
     public function getDescription(): string
     {
-        return 'Semeia o banco de dados com ideias e comentários fictícios para testes.';
+        return 'Semeia o banco de dados com salas, ideias e comentários fictícios.';
     }
 
     public function execute(array $args): void
     {
         echo "🌱 Semeando dados fictícios no Volt R²...\n";
 
-        // 1. Pegar autores para distribuir as ideias
+        // 1. Verificar/Buscar a sala específica que você mencionou
+        $targetUuid = "1039b2d84b5344162a37417b15ee8c82";
+        $room = $this->db->query("SELECT id FROM rooms WHERE uuid = ?", [$targetUuid])->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$room) {
+            echo "⚠️ Sala específica não encontrada. Criando sala padrão para o Seed...\n";
+            $expiresAt = (new \DateTime())->modify('+24 hours')->format('Y-m-d H:i:s');
+            $this->db->query(
+                "INSERT INTO rooms (uuid, description, expires_at) VALUES (?, ?, ?)",
+                [$targetUuid, 'Sala de Brainstorming Internacional', $expiresAt]
+            );
+            $roomId = $this->db->lastInsertId();
+        } else {
+            $roomId = $room['id'];
+        }
+
+        // 2. Pegar autores (Frutas e Animais)
         $fruits = $this->db->query("SELECT id FROM authors WHERE type = 1")->fetchAll(\PDO::FETCH_ASSOC);
         $animals = $this->db->query("SELECT id FROM authors WHERE type = 0")->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -40,7 +56,12 @@ class SeedCommand implements CommandInterface
             // Sorteia um animal (humano) para ser o autor da ideia
             $authorId = $animals[array_rand($animals)]['id'];
             
-            $this->db->query("INSERT INTO ideas (author_id, content) VALUES (?, ?)", [$authorId, $content]);
+            // AGORA INCLUÍMOS O room_id NA INSERÇÃO
+            $this->db->query(
+                "INSERT INTO ideas (room_id, author_id, content) VALUES (?, ?, ?)", 
+                [$roomId, $authorId, $content]
+            );
+            
             $ideaId = $this->db->lastInsertId();
 
             // Criar 2 comentários de frutas (IA) para cada ideia
@@ -53,6 +74,6 @@ class SeedCommand implements CommandInterface
             }
         }
 
-        echo "✅ Sucesso! O mar está cheio de ideias.\n";
+        echo "✅ Seed finalizado com sucesso para a sala: $targetUuid\n";
     }
 }
