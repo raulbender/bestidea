@@ -32,6 +32,11 @@
     padding-right: var(--container-padding);
 }
 
+.nav-user-container {
+    display: flex;
+    align-items: center;
+}
+
 .nav-left {
     display: flex;
     align-items: center;
@@ -66,7 +71,7 @@
 .nav-user-badge {    
     padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-xl); 
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
     color: var(--text-main); 
     max-width: var(--nav-badge-max-width);
