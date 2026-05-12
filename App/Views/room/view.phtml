@@ -2,7 +2,7 @@
 
 <div class="content-wrapper">
     <div class="container layout-single">
-        
+
         <header class="room-header-card mb-6 p-6 rounded-lg bg-main border border-subtle shadow-sm">
             <div class="flex flex-col gap-2">
                 <span class="text-accent font-semibold text-sm uppercase tracking-wider">
@@ -11,7 +11,7 @@
                 <h1 class="text-2xl font-bold text-main leading-tight">
                     <?= e($data->description) ?>
                 </h1>
-                
+
                 <div class="mt-4 flex items-center gap-2 text-muted text-sm">
                     <?php icon('clock', 'w-4 h-4'); ?>
                     <span><?= __('rooms.expires_in') ?>:</span>
@@ -25,8 +25,26 @@
         <script>
             window.ROOM_CONTEXT = {
                 uuid: "<?= $data->uuid ?>",
-                msg_empty: "<?= __('rooms.without_ideas') ?>"
+                msg_empty: "<?= __('rooms.without_ideas') ?>",
+                author: {
+                    name: "Capivara do Código", // Simulando busca do ID 10
+                    avatar: "C"
+                }
             };
+            (function() {
+                const auth = window.ROOM_CONTEXT.author;
+                if (auth) {
+                    const container = document.getElementById('nav-user-context');
+                    const nameEl = document.getElementById('nav-username');
+                    const avatarEl = document.getElementById('nav-avatar');
+
+                    if (container && nameEl && avatarEl) {
+                        nameEl.textContent = auth.name;
+                        avatarEl.textContent = auth.avatar;
+                        container.classList.remove('hidden'); // Revela a "identidade"
+                    }
+                }
+            })();
         </script>
 
         <div class="ideas-container">
@@ -36,30 +54,30 @@
 </div>
 
 <script>
-/**
- * Lógica da Contagem Regressiva
- */
-(function() {
-    const countdownEl = document.getElementById('countdown');
-    const expireDate = new Date(countdownEl.dataset.expire.replace(' ', 'T')).getTime();
+    /**
+     * Lógica da Contagem Regressiva
+     */
+    (function() {
+        const countdownEl = document.getElementById('countdown');
+        const expireDate = new Date(countdownEl.dataset.expire.replace(' ', 'T')).getTime();
 
-    const updateTimer = () => {
-        const now = new Date().getTime();
-        const distance = expireDate - now;
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = expireDate - now;
 
-        if (distance < 0) {
-            countdownEl.innerHTML = "<?= __('rooms.expired') ?>";
-            return;
-        }
+            if (distance < 0) {
+                countdownEl.innerHTML = "<?= __('rooms.expired') ?>";
+                return;
+            }
 
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        countdownEl.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-    };
+            countdownEl.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+        };
 
-    setInterval(updateTimer, 1000);
-    updateTimer();
-})();
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    })();
 </script>
