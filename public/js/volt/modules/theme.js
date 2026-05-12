@@ -1,4 +1,10 @@
 const VoltTheme = {
+    init() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') 
+                             || localStorage.getItem('volt_theme') 
+                             || 'light';
+        this.updateButton(currentTheme);
+    },
     toggle() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -21,3 +27,5 @@ const VoltTheme = {
         btn.innerHTML = (theme === 'dark') ? window.FrameworkConfig.i18n.themeLight : window.FrameworkConfig.i18n.themeDark;
     }
 };
+
+document.addEventListener('DOMContentLoaded', () => VoltTheme.init());
