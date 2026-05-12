@@ -13,9 +13,11 @@ use App\Components\Room\RoomRepositoryInterface;
 use App\Components\Room\RoomRepository;
 use App\Components\Room\RoomServiceInterface;
 use App\Components\Room\RoomService;
-
+use App\Components\Author\AuthorRepositoryInterface;
+use App\Components\Author\AuthorRepository;
 
 Container::bind(FeedRepositoryInterface::class, FeedRepository::class);
 Container::bind(FeedServiceInterface::class, FeedService::class);
 Container::bind(RoomRepositoryInterface::class, RoomRepository::class);
 Container::bind(RoomServiceInterface::class, RoomService::class);
+Container::bind(AuthorRepositoryInterface::class, AuthorRepository::class);
