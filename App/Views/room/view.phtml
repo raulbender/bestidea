@@ -1,14 +1,64 @@
-<div class="room-header">
-    <h1><?= e($data->description) ?></h1>
-    <span class="badge">Expira em: <?= $data->expires_at ?></span>
+<link rel="stylesheet" href="/css/volt/modules/feed.css">
+
+<div class="content-wrapper">
+    <div class="container layout-single">
+        
+        <header class="room-header-card mb-6 p-6 rounded-lg bg-main border border-subtle shadow-sm">
+            <div class="flex flex-col gap-2">
+                <span class="text-accent font-semibold text-sm uppercase tracking-wider">
+                    <?= __('rooms.need_idea_for') ?>
+                </span>
+                <h1 class="text-2xl font-bold text-main leading-tight">
+                    <?= e($data->description) ?>
+                </h1>
+                
+                <div class="mt-4 flex items-center gap-2 text-muted text-sm">
+                    <?php icon('clock', 'w-4 h-4'); ?>
+                    <span><?= __('rooms.expires_in') ?>:</span>
+                    <span id="countdown" class="font-mono text-primary font-bold" data-expire="<?= $data->expires_at ?>">
+                        --:--:--
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <script>
+            window.ROOM_CONTEXT = {
+                uuid: "<?= $data->uuid ?>"
+            };
+        </script>
+
+        <div class="ideas-container">
+            <?php partial('../feed/feed'); ?>
+        </div>
+    </div>
 </div>
 
 <script>
-    window.ROOM_CONTEXT = {
-        uuid: "<?= $data->uuid ?>"
-    };
-</script>
+/**
+ * Lógica da Contagem Regressiva
+ */
+(function() {
+    const countdownEl = document.getElementById('countdown');
+    const expireDate = new Date(countdownEl.dataset.expire.replace(' ', 'T')).getTime();
 
-<div class="ideas-container">
-    <?php partial('../feed/feed'); ?>
-</div>
+    const updateTimer = () => {
+        const now = new Date().getTime();
+        const distance = expireDate - now;
+
+        if (distance < 0) {
+            countdownEl.innerHTML = "<?= __('rooms.expired') ?>";
+            return;
+        }
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownEl.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+    };
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+})();
+</script>
