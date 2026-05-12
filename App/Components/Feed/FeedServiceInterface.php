@@ -8,6 +8,8 @@ interface FeedServiceInterface
 {
     /** @return array<int, IdeaEntity> */
     public function getTimeline(): array;
+    
+    public function getTimelineByRoom(?string $roomUuid = null): array;
 
     /** @param array<string, mixed> $data */
     public function publishIdea(array $data): bool;

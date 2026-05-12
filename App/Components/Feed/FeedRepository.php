@@ -20,6 +20,22 @@ class FeedRepository implements FeedRepositoryInterface {
             ->get(IdeaEntity::class); 
     }
 
+    // App/Components/Feed/FeedRepository.php
+
+public function findAllByRoomUuid(string $roomUuid): array {
+    return $this->db->table('ideas')
+        ->select(
+            'ideas.*', 
+            'authors.name AS author_name', 
+            'authors.avatar AS author_avatar'
+        )
+        ->join('authors', 'ideas.author_id', '=', 'authors.id')
+        ->join('rooms', 'ideas.room_id', '=', 'rooms.id') // Join para chegar no UUID
+        ->where('rooms.uuid', '=', $roomUuid)            // O filtro de segurança que você sugeriu
+        ->orderByDesc('ideas.created_at')
+        ->get(IdeaEntity::class);
+}
+
     public function findCommentsByIdeaIds(array $ids): array {
         if (empty($ids)) return [];
 

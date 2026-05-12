@@ -24,7 +24,7 @@ class Route extends BaseRoute {
         ];
 
         $this->routes['feed_api'] = [
-            'route' => '/{lang}/api/ideas',
+            'route' => '/{lang}/api/idea/{uuid}', 
             'controller' => FeedController::class,
             'action' => 'getIdeasApi',
         ];
