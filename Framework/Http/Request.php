@@ -9,6 +9,7 @@ class Request implements ScopedService {
         private array $query = [],
         private array $post = [],
         private array $server = [],
+        private array $cookies = [],
         private ?string $content = null,
         private array $headers = []
     ) {
@@ -23,6 +24,7 @@ class Request implements ScopedService {
             $psrRequest->getQueryParams(),
             $psrRequest->getParsedBody() ?? [],
             $psrRequest->getServerParams(),
+            $psrRequest->getCookieParams(),
             (string) $psrRequest->getBody()
         );
 
@@ -141,4 +143,12 @@ class Request implements ScopedService {
     public function getAttribute(string $key, mixed $default = null): mixed {
         return $this->server[$key] ?? $default;
     }
+
+    // App/Framework/Http/Request.php
+
+    public function getCookieParams(): array {
+    // Se você estiver usando o RoadRunner, o objeto ServerRequestInterface 
+    // já tem o getCookieParams(). Basta passá-lo no método createFromPsr7.
+    return $this->cookies; 
+}
 }
