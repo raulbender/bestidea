@@ -14,7 +14,7 @@ class RoomController extends BaseController {
   }
 
 
-  public function index(Request $request): ResponseDTO {
+  public function index(): ResponseDTO {
     return $this->render('room/index');
   }
 
@@ -22,41 +22,77 @@ class RoomController extends BaseController {
   public function create(Request $request): ResponseDTO {
     $description = $request->pullString('description');
 
-      $uuid = $this->service->createRoom($description);
+    $uuid = $this->service->createRoom($description);
 
-      // Redireciona para evitar reenvio de formulário (F5)
-      return $this->redirect(route('room_view', ['uuid' => $uuid]));
-
+    // Redireciona para evitar reenvio de formulário (F5)
+    return $this->redirect(route('room_view', ['uuid' => $uuid]));
   }
 
 
 
- 
-  // GET /{lang}/room/{uuid}
-public function view(Request $request): ResponseDTO 
-{
-    // 1. Captura o UUID que a BaseRoute injetou na Request
+
+  // public function view(Request $request): ResponseDTO {
+  //   $uuid = $request->getAttribute('uuid');
+
+  //   if (!$uuid) {
+  //     return $this->redirect(route('home'));
+  //   }
+
+  //   $room = $this->service->getRoomByUuid($uuid);
+  //   if (!$room) {
+  //     throw new \RuntimeException("Sala não encontrada ou expirada.", 404);
+  //   }
+  //   $roomDTO = $this->makeRoomDTO($room);
+
+  //   return $this->render('room/view', $roomDTO);
+  // }
+
+  public function view(Request $request): ResponseDTO {
     $uuid = $request->getAttribute('uuid');
 
     if (!$uuid) {
-        return $this->redirect(route('home'));
+      return $this->redirect(route('home'));
     }
 
-    // 2. Busca os dados da sala através do Service
     $room = $this->service->getRoomByUuid($uuid);
-
-    // 3. Se a sala não existir ou estiver expirada, lidamos com o erro
     if (!$room) {
-        throw new \RuntimeException("Sala não encontrada ou expirada.");
+      throw new \RuntimeException("Sala não encontrada ou expirada.");
     }
 
-    $roomDTO = new RoomDTO(
-        uuid: $room->uuid,
-        description: $room->description,
-        expires_at: $room->expires_at . "Z"
-    );
-    // 4. Renderiza a view com os dados da sala (description, etc)
-    return $this->render('room/view', $roomDTO);
-}
+    // --- Lógica do Cookie (O Coração da Autenticação por Sala) ---
+    $cookieName = "auth_room_{$uuid}";
 
+    // Verificamos se o navegador já enviou esse cookie
+    // Como você usa PSR-7, pegamos via getCookieParams da Request
+    $cookies = $request->getCookieParams(); // Se seu framework não tiver esse atalho, usamos $_COOKIE
+    $authorId = $cookies[$cookieName] ?? null;
+
+    if (!$authorId) {
+      // Simulação: Sorteamos o autor ID 10
+      $authorId = 10;
+
+      // Criamos a resposta e anexamos o cookie
+      $roomDTO = $this->makeRoomDTO($room);
+      $response = $this->render('room/view', $roomDTO);
+
+      // Definimos o cookie para durar enquanto a sala existir (ou 24h)
+      // Set-Cookie: auth_room_uuid=10; Path=/; HttpOnly
+      $response->headers['Set-Cookie'] = $this->cookie("auth_room_{$uuid}", "10");
+
+      return $response;
+    }
+
+    // Se já tem o cookie, apenas renderiza normalmente
+    $roomDTO = $this->makeRoomDTO($room);
+    return $this->render('room/view', $roomDTO);
+  }
+
+
+  private function makeRoomDTO(RoomEntity $room): RoomDTO {
+    return new RoomDTO(
+      uuid: $room->uuid,
+      description: $room->description,
+      expires_at: $room->expires_at . "Z"
+    );
+  }
 }
