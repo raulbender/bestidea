@@ -14,10 +14,10 @@ class FeedController extends BaseController
         parent::__construct();
     }
 
-    public function index(): ResponseDTO
-    {        
-        return $this->render('feed/feed');
-    }
+    // public function index(): ResponseDTO
+    // {        
+    //     return $this->render('feed/feed');
+    // }
 
     public function getIdeasApi(): ResponseDTO
     {
