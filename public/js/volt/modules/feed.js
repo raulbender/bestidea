@@ -49,8 +49,10 @@ function renderStars(rating) {
 function renderFeed(ideas) {
     const app = document.getElementById('feed-app');
 
+    const msgEmpty = window.ROOM_CONTEXT.msg_empty;
+
     if (ideas.length === 0) {
-        app.innerHTML = '<div class="text-center p-6">Nenhuma ideia no horizonte ainda...</div>';
+        app.innerHTML = `<div class="text-center text-muted italic p-6">${msgEmpty}</div>`;
         return;
     }
     
