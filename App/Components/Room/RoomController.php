@@ -53,7 +53,7 @@ public function view(Request $request): ResponseDTO
     $roomDTO = new RoomDTO(
         uuid: $room->uuid,
         description: $room->description,
-        expires_at: $room->expires_at
+        expires_at: $room->expires_at . "Z"
     );
     // 4. Renderiza a view com os dados da sala (description, etc)
     return $this->render('room/view', $roomDTO);
