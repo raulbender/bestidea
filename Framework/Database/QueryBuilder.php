@@ -119,6 +119,12 @@ class QueryBuilder {
         return $this;
     }
 
+    public function orderByRaw(string $raw): self {
+        $this->orders[] = $raw;
+
+        return $this;
+    }
+
 
     public function join(string $table, string $first, string $operator, string $second, string $type = 'INNER'): self {
         $this->joins[] = "{$type} JOIN {$table} ON {$first} {$operator} {$second}";
