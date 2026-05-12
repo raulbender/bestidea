@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= __('layout.nav_brand') ?></title>
-    
+
     <link rel="stylesheet" href="/css/volt/base/layout.css">
     <link rel="stylesheet" href="/css/volt/base/debug.css">
     <link rel="stylesheet" href="/css/volt/base/reset.css">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/volt/components/buttons.css">
     <link rel="stylesheet" href="/css/volt/components/dropdowns.css">
     <link rel="stylesheet" href="/css/volt/components/forms.css">
-    <link rel="stylesheet" href="/css/volt/components/icons.css">    
+    <link rel="stylesheet" href="/css/volt/components/icons.css">
     <link rel="stylesheet" href="/css/volt/components/avatars.css">
     <link rel="stylesheet" href="/css/volt/utilities.css">
 
@@ -29,7 +29,7 @@
             translations: <?= json_encode(__('js')) ?>
         };
     </script>
-    
+
     <script>
         window.FrameworkConfig = {
             debugMode: <?= ($baseDTO->debugModeOn ?? false) ? 'true' : 'false' ?>,
@@ -50,10 +50,10 @@
         })();
     </script>
 
-<script src="/js/volt/components/alerts.js" defer></script>
-<script src="/js/volt/components/dropdowns.js" defer></script>
-<script src="/js/volt/modules/theme.js" defer></script>
-<script src="/js/volt/framework.js" defer></script>
+    <script src="/js/volt/components/alerts.js" defer></script>
+    <script src="/js/volt/components/dropdowns.js" defer></script>
+    <script src="/js/volt/modules/theme.js" defer></script>
+    <script src="/js/volt/framework.js" defer></script>
 
 </head>
 
@@ -75,7 +75,7 @@
                     <div class="wrapper-trigger" onclick="VoltDropdown.toggle('site-menu', event)">
                         <?= icon('appmenu') ?>
                     </div>
-                    <?=  partial('dropdown_main') ?>
+                    <?= partial('dropdown_main') ?>
                 </div>
 
                 <div class="nav-center">
@@ -84,20 +84,20 @@
                     </a>
                 </div>
 
+
                 <div class="nav-right">
-                    <?php if ($baseDTO->id > -1): ?>   
-
-                        <div class="wrapper-trigger" onclick="VoltDropdown.toggle('user-menu', event)">
-
-                            <span class="nav-user-badge"><?= e($baseDTO->username) ?></span>
-
-                            <div class="volt-avatar noTop"><?= $baseDTO->avatar ?></div>
-                            <?= icon('arrowdown') ?>
-                           <?= partial('dropdown_user') ?>
-                         </div>
-                    
-                    <?php endif; ?>
+                    <div id="nav-user-context" class="nav-user-container hidden" onclick="VoltDropdown.toggle('user-menu', event)">
+                        <div class="nav-user-info">
+                            <span id="nav-username" class="nav-user-badge"></span>
+                        </div>
+                        <div class="volt-avatar-wrapper">
+                            <div id="nav-avatar" class="volt-avatar noTop"></div>
+                        </div>
+                        <?= icon('arrowdown', 'nav-arrow') ?> 
+                        <?= partial('dropdown_user') ?>
+                    </div>
                 </div>
+
             </div>
         </nav>
     <?php endif; ?>
