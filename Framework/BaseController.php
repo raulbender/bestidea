@@ -105,4 +105,13 @@ abstract class BaseController {
             body: (string) json_encode($data)
         );
     }
+
+    protected function cookie(string $name, string $value, int $expire = 3600): string {
+        return sprintf(
+            "%s=%s; Path=/; HttpOnly; SameSite=Lax; Max-Age=%d",
+            $name,
+            $value,
+            $expire
+        );
+    }
 }
