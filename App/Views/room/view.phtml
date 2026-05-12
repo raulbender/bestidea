@@ -3,6 +3,12 @@
     <span class="badge">Expira em: <?= $data->expires_at ?></span>
 </div>
 
+<script>
+    window.ROOM_CONTEXT = {
+        id: <?= $data->uuid ?>
+    };
+</script>
+
 <div class="ideas-container">
-    <p>Bem-vindo à sala! Comece a dar suas ideias.</p>
+    <?php partial('../feed/feed'); ?>
 </div>
