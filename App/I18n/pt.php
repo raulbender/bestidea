@@ -29,6 +29,11 @@ return [
         'description_placeholder' => 'Eu preciso de uma ideia para...',
         'empty_message' => 'Nenhuma sala de ideias disponível no momento. Seja o primeiro a criar uma!',
         'advance_button' => 'Criar sala',
+        'need_idea_for' => 'Precisamos de uma ideia para:',
+        'expires_in' => 'Expira em',
+        'expired' => 'Expirada',
+        'without_ideas' => 'Sem ideias ainda. Seja o primeiro a contribuir!',
+        'loading_ideas' => 'Carregando ideias incríveis...',
     ],
     'js' => [
         'now' => 'agora',

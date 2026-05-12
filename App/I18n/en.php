@@ -29,6 +29,11 @@ return [
         'description_placeholder' => 'I need an idea for...',
         'empty_message' => 'No idea rooms available at the moment. Be the first to create one!',
         'advance_button' => 'Create room',
+        'need_idea_for' => 'We need an idea for:',
+        'expires_in' => 'Expires in',
+        'expired' => 'Expired',
+        'without_ideas' => 'No ideas yet. Be the first to contribute!',
+        'loading_ideas' => 'Loading amazing ideas...',
     ],
     'js' => [
         'now' => 'now',
