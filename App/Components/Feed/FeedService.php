@@ -35,6 +35,7 @@ class FeedService implements FeedServiceInterface {
         foreach ($ideas as $idea) {
             $idea->author_name = __($idea->author_name); 
             $idea->comments = $commentsGrouped[$idea->id] ?? []; 
+            $idea->created_at .= "Z";
         }
 
         return $ideas;
