@@ -23,10 +23,3 @@
     border-bottom: none;
 }
 
-.star-muted {
-    color: var(--text-muted);
-}
-
-.star-primary {
-    color: var(--primary);
-}
