@@ -144,6 +144,13 @@ function csrfInput(string $token): string {
 }
 
 /**
+ * Gera a meta tag de CSRF para o cabeçalho.
+ */
+function csrfMeta(string $token): string {
+    return "<meta name='csrf-token' content='{$token}'>";
+}
+
+/**
  * GUARDIÕES DE TIPO: Forçam a conversão e validam a integridade dos dados.
  * Use sempre que receber dados de fontes externas (Request/DB).
  */
