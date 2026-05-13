@@ -68,12 +68,14 @@ class FeedService implements FeedServiceInterface {
 
     public function getTimelineByRoom(?string $roomUuid = null): array {
         if ($roomUuid) {
+            /** @var array <IdeaEntity> $ideas */
             $ideas = $this->feedRepository->findAllByRoomUuid($roomUuid);
         }
 
         if (empty($ideas)) return [];
 
         $ideaIds = array_map(fn($idea) => $idea->id, $ideas);
+        /** @var array <CommentEntity> $allComments */
         $allComments = $this->feedRepository->findCommentsByIdeaIds($ideaIds);
 
         $commentsGrouped = [];
