@@ -21,19 +21,38 @@ class FeedRepository implements FeedRepositoryInterface {
     }
 
 
+    // public function findAllByRoomUuid(string $roomUuid): array {
+    //     return $this->db->table('ideas')
+    //         ->select(
+    //             'ideas.*',
+    //             'authors.name AS author_name',
+    //             'authors.avatar AS author_avatar'
+    //         )
+    //         ->join('authors', 'ideas.author_id', '=', 'authors.id')
+    //         ->join('rooms', 'ideas.room_id', '=', 'rooms.id') // Join para chegar no UUID
+    //         ->where('rooms.uuid', '=', $roomUuid)            // O filtro de segurança que você sugeriu
+    //         ->orderByDesc('ideas.created_at')
+    //         ->get(IdeaEntity::class);
+    // }
+
     public function findAllByRoomUuid(string $roomUuid): array {
-        return $this->db->table('ideas')
-            ->select(
-                'ideas.*',
-                'authors.name AS author_name',
-                'authors.avatar AS author_avatar'
-            )
-            ->join('authors', 'ideas.author_id', '=', 'authors.id')
-            ->join('rooms', 'ideas.room_id', '=', 'rooms.id') // Join para chegar no UUID
-            ->where('rooms.uuid', '=', $roomUuid)            // O filtro de segurança que você sugeriu
-            ->orderByDesc('ideas.created_at')
-            ->get(IdeaEntity::class);
-    }
+    return $this->db->table('ideas')
+        ->select(
+            'ideas.*',
+            'authors.name AS author_name',
+            'authors.avatar AS author_avatar'
+        )
+        // Injetando a média e o total via MySQL
+        ->selectRaw('(SELECT IFNULL(ROUND(AVG(rating), 1), 0) FROM comments WHERE idea_id = ideas.id) as average_rating')
+        ->selectRaw('(SELECT COUNT(*) FROM comments WHERE idea_id = ideas.id) as total_comments')
+        
+        ->join('authors', 'ideas.author_id', '=', 'authors.id')
+        ->join('rooms', 'ideas.room_id', '=', 'rooms.id')
+        ->where('rooms.uuid', '=', $roomUuid)
+        ->orderByDesc('average_rating')
+        ->orderByDesc('ideas.created_at')
+        ->get(IdeaEntity::class);
+}
 
     public function findCommentsByIdeaIds(array $ids): array {
         if (empty($ids)) return [];

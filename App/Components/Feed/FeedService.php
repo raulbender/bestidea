@@ -93,6 +93,8 @@ class FeedService implements FeedServiceInterface {
             $idea->author_name = __($idea->author_name);
             $idea->comments = $commentsGrouped[$idea->id] ?? [];
             $idea->created_at .= "Z";
+            $idea->average_rating = $idea->average_rating !== null ? (float) $idea->average_rating : null;
+            $idea->total_comments = $idea->total_comments !== null ? (int) $idea->total_comments : null;
         }
 
         return $ideas;

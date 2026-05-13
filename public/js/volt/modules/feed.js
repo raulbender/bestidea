@@ -58,13 +58,28 @@ function renderFeed(ideas) {
         return `
         <article class="feed-item bg-main border border-subtle rounded-lg shadow-sm mb-6 volt-animate" data-idea-id="${idea.id}">
             <div class="p-4">
-                <header class="flex items-center gap-3 mb-4">
-                    <div class="volt-avatar">${idea.author_avatar}</div>
-                    <div>
-                        <div class="text-main font-bold">${idea.author_name}</div>
-                        <div class="text-muted text-sm">${formatRelativeTime(idea.created_at)}</div>
-                    </div>
-                </header>
+                    <header class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="volt-avatar">${idea.author_avatar}</div>
+                            
+                            <div class="flex flex-col">
+                                <div class="text-main font-bold text-sm leading-tight">
+                                    ${idea.author_name}
+                                </div>
+                                <div class="text-muted text-sm mt-0.5">
+                                    ${formatRelativeTime(idea.created_at)}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-1 bg-subtle px-2 py-1 rounded-md border border-subtle">
+                            <span class="star-primary text-xs">★</span>
+                            <span class="text-main font-bold text-xs">
+                                ${idea.average_rating > 0 ? idea.average_rating : '--'}
+                            </span>
+                            <span class="text-muted text-[10px]">(${idea.total_comments})</span>
+                        </div>
+                    </header>
                 
                 <div class="text-main mb-4">${idea.content}</div>
 
