@@ -76,12 +76,24 @@ function renderFeed(ideas) {
                 </div>
 
                 <div id="comment-form-${idea.id}" class="hidden mb-6 volt-animate bg-subtle p-4 rounded-md">
+                    <div class="flex items-center gap-2 mb-3">
+                       <span class="text-xs text-muted uppercase font-bold">${window.VoltI18n.translations.avaliation || 'Avaliation'}</span>               
+                    <div class="star-rating flex gap-1" data-idea-id="${idea.id}">
+                        <span class="star-icon" data-value="5" onclick="setRating(${idea.id}, 5)">★</span>
+                        <span class="star-icon" data-value="4" onclick="setRating(${idea.id}, 4)">★</span>
+                        <span class="star-icon" data-value="3" onclick="setRating(${idea.id}, 3)">★</span>
+                        <span class="star-icon" data-value="2" onclick="setRating(${idea.id}, 2)">★</span>
+                        <span class="star-icon" data-value="1" onclick="setRating(${idea.id}, 1)">★</span>
+                    </div>
+    
+                    <input type="hidden" id="rating-input-${idea.id}" value="0">
+                    </div>
                     <textarea id="comment-text-${idea.id}" 
                               class="comment-textarea w-full text-sm mb-2" 
-                              placeholder="Escreva sua crítica ou sugestão..."></textarea>
+                              placeholder="${window.VoltI18n.translations.comment_placeholder || 'Write your review or suggestion...'}"></textarea>
                     <div class="flex justify-end gap-2">
-                        <button class="btn text-muted text-xs" onclick="toggleCommentForm(${idea.id})">Cancelar</button>
-                        <button class="btn btn-primary px-4 py-1 text-xs" onclick="submitComment(${idea.id})">Enviar</button>
+                        <button class="btn text-muted text-xs" onclick="toggleCommentForm(${idea.id})">${window.VoltI18n.translations.cancel || 'Cancel'}</button>
+                        <button class="btn btn-primary px-4 py-1 text-xs" onclick="submitComment(${idea.id})">${window.VoltI18n.translations.send || 'Send'}</button>
                     </div>
                 </div>
                 
@@ -128,17 +140,88 @@ function toggleCommentForm(ideaId) {
 }
 
 // Função que faremos a seguir para bater no FeedController
+// async function submitComment(ideaId) {
+//     const textEl = document.getElementById(`comment-text-${ideaId}`);
+//     const content = textEl.value.trim();
+
+//     if (content.length < 3) {
+//         alert("Comentário muito curto!");
+//         return;
+//     }
+
+//     console.log(`Enviando comentário para a ideia ${ideaId}: ${content}`);
+//     // Próximo passo: o fetch para a API
+// }
+
+// function setRating(ideaId, value) {
+//     const container = document.querySelector(`.star-rating[data-idea-id="${ideaId}"]`);
+//     const stars = container.querySelectorAll('.star-icon');
+//     const input = document.getElementById(`rating-input-${ideaId}`);
+
+//     // Atualiza o valor no input escondido
+//     input.value = value;
+
+//     // Feedback visual: Pinta as estrelas
+//     stars.forEach(star => {
+//         const starValue = parseInt(star.getAttribute('data-value'));
+//         if (starValue <= value) {
+//             star.classList.remove('text-gray-400');
+//             star.classList.add('text-yellow-500'); // Cor de destaque
+//         } else {
+//             star.classList.remove('text-yellow-500');
+//             star.classList.add('text-gray-400');
+//         }
+//     });
+// }
+
+function setRating(ideaId, value) {
+    const container = document.querySelector(`.star-rating[data-idea-id="${ideaId}"]`);
+    const stars = container.querySelectorAll('.star-icon');
+    const input = document.getElementById(`rating-input-${ideaId}`);
+
+    input.value = value;
+
+    // Removemos a cor manual via JS e usamos CLASSES, que é mais limpo (Sênior style)
+    stars.forEach(star => {
+        const starValue = parseInt(star.getAttribute('data-value'));
+        
+        // Se o valor da estrela for IGUAL ao clicado, marcamos como active
+        // O nosso CSS (active ~ star-icon) cuidará de pintar as anteriores
+        if (starValue === value) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
 async function submitComment(ideaId) {
     const textEl = document.getElementById(`comment-text-${ideaId}`);
+    const ratingEl = document.getElementById(`rating-input-${ideaId}`);
+    
     const content = textEl.value.trim();
+    const rating = parseInt(ratingEl.value);
 
-    if (content.length < 3) {
-        alert("Comentário muito curto!");
+    // Validação obrigatória
+    if (rating === 0) {
+        alert("Por favor, selecione uma avaliação de 1 a 5 estrelas! ⭐");
         return;
     }
 
-    console.log(`Enviando comentário para a ideia ${ideaId}: ${content}`);
-    // Próximo passo: o fetch para a API
+    if (content.length < 3) {
+        alert("O comentário precisa de pelo menos 3 caracteres.");
+        return;
+    }
+
+    console.log("--- Payload de Comentário ---");
+    console.log(`Ideia ID: ${ideaId}`);
+    console.log(`Rating: ${rating} estrelas`);
+    console.log(`Conteúdo: ${content}`);
+    
+    // Sucesso inicial: Limpar e fechar
+    toggleCommentForm(ideaId);
+    textEl.value = '';
+    setRating(ideaId, 0); // Reseta as estrelas
 }
 
 document.addEventListener('DOMContentLoaded', loadFeed);
