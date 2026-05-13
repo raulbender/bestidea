@@ -50,11 +50,11 @@ return [
         'h' => 'h',
         'd' => 'd',
         'error' => 'Error while navigating these waters',        
-        'comment' => 'Comment',
+        'evaluate' => 'Evaluate',
         'comment_placeholder' => 'Write your review or suggestion...',
         'send' => 'Send',
         'cancel' => 'Cancel',
-        'avaliation' => 'Avaliation',
+        'evaluation' => 'Evaluation',
     ],
     'author' => [
         'fruit' => [

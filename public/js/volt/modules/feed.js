@@ -71,13 +71,13 @@ function renderFeed(ideas) {
                 <div class="flex gap-4 mb-4 border-t border-subtle pt-3">
                     <button id="btn-comment-toggle-${idea.id}" class="btn btn-comment-toggle text-accent flex items-center gap-1 text-sm font-semibold" 
                             onclick="toggleCommentForm(${idea.id})">
-                        💬 ${window.VoltI18n.translations.comment}
+                        ⭐ ${window.VoltI18n.translations.evaluate}
                     </button>
                 </div>
 
                 <div id="comment-form-${idea.id}" class="hidden mb-6 volt-animate bg-subtle p-4 rounded-md">
                     <div class="flex items-center gap-2 mb-3">
-                       <span class="text-xs text-muted uppercase font-bold">${window.VoltI18n.translations.avaliation}</span>               
+                       <span class="text-xs text-muted uppercase font-bold">${window.VoltI18n.translations.evaluation}</span>               
                     <div class="star-rating flex gap-1" data-idea-id="${idea.id}">
                         <span class="star-icon" data-value="5" onclick="setRating(${idea.id}, 5)">★</span>
                         <span class="star-icon" data-value="4" onclick="setRating(${idea.id}, 4)">★</span>
