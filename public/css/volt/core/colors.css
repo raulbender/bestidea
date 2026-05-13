@@ -41,9 +41,27 @@
     /* Paleta Green (Sucesso/Ação Positiva) */
     --green-50: #f0fdf4;
     --green-100: #dcfce7;
+    --green-200: #bbf7d0;
+    --green-300: #86efac;
+    --green-400: #4ade80;
     --green-500: #22c55e; /* Cor Principal */
     --green-600: #16a34a; /* Hover */
     --green-700: #15803d; /* Bordas/Foco */
+    --green-800: #166534; /* Sombras/Elementos Secundários */
+    --green-900: #14532d; /* Sombras Mais Escuras/Elementos de Destaque */
+
+    /* Paleta Yellow (Atenção/Alerta) */
+    --yellow-50: #fffbeb;
+    --yellow-100: #fef3c7;
+    --yellow-200: #fde68a;
+    --yellow-300: #fcd34d;
+    --yellow-400: #fbbf24;
+    --yellow-500: #f59e0b; /* Cor Principal */
+    --yellow-600: #d97706; /* Hover */
+    --yellow-700: #b45309; /* Bordas/Foco */
+    --yellow-800: #92400e; /* Sombras/Elementos Secundários */
+    --yellow-900: #78350f; /* Sombras Mais Escuras/Elementos de Destaque */
+
 
     /* Paleta Gray */
     --gray-50: #f9fafb;
