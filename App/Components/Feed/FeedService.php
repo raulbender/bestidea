@@ -4,22 +4,35 @@ declare(strict_types=1);
 
 namespace App\Components\Feed;
 
+use App\Components\Room\RoomServiceInterface;
+
 class FeedService implements FeedServiceInterface {
     public function __construct(
-        private FeedRepositoryInterface $repository
+        private FeedRepositoryInterface $feedRepository,
+        private RoomServiceInterface $roomService
     ) {
+    }
+
+    public function contributeToRoom(string $roomUuid, int $authorId, string $content): void {
+        $room_id = $this->roomService->getRoomByUuid($roomUuid)->id;
+        $idea = new IdeaEntity();
+        $idea->author_id = $authorId;
+        $idea->room_id = $room_id;
+        $idea->content = $content;
+
+        $this->feedRepository->createIdea($idea);
     }
 
     public function getTimeline(): array {
         /** @var array <IdeaEntity> $ideas */
-        $ideas = $this->repository->findAllWithAuthors(); 
+        $ideas = $this->feedRepository->findAllWithAuthors();
 
         if (empty($ideas)) return [];
 
         $ideaIds = array_map(fn($idea) => $idea->id, $ideas);
 
         /** @var array <CommentEntity> $allComments */
-        $allComments = $this->repository->findCommentsByIdeaIds($ideaIds);
+        $allComments = $this->feedRepository->findCommentsByIdeaIds($ideaIds);
 
         $commentsGrouped = [];
         foreach ($allComments as $comment) {
@@ -28,13 +41,13 @@ class FeedService implements FeedServiceInterface {
                 'avatar'  => $comment->author_avatar,
                 'content' => $comment->content,
                 'created_at' => $comment->created_at . "Z",
-                'rating'     => (int) ($comment->rating ?? 0)                
+                'rating'     => (int) ($comment->rating ?? 0)
             ];
         }
 
         foreach ($ideas as $idea) {
-            $idea->author_name = __($idea->author_name); 
-            $idea->comments = $commentsGrouped[$idea->id] ?? []; 
+            $idea->author_name = __($idea->author_name);
+            $idea->comments = $commentsGrouped[$idea->id] ?? [];
             $idea->created_at .= "Z";
         }
 
@@ -42,17 +55,16 @@ class FeedService implements FeedServiceInterface {
         return $ideas;
     }
 
-    // App/Components/Feed/FeedService.php
 
-public function getTimelineByRoom(?string $roomUuid = null): array {
-    if ($roomUuid) {
-        $ideas = $this->repository->findAllByRoomUuid($roomUuid);
-    } 
-    
-    if (empty($ideas)) return [];
+    public function getTimelineByRoom(?string $roomUuid = null): array {
+        if ($roomUuid) {
+            $ideas = $this->feedRepository->findAllByRoomUuid($roomUuid);
+        }
 
-    $ideaIds = array_map(fn($idea) => $idea->id, $ideas);
-    $allComments = $this->repository->findCommentsByIdeaIds($ideaIds);
+        if (empty($ideas)) return [];
+
+        $ideaIds = array_map(fn($idea) => $idea->id, $ideas);
+        $allComments = $this->feedRepository->findCommentsByIdeaIds($ideaIds);
 
         $commentsGrouped = [];
         foreach ($allComments as $comment) {
@@ -61,23 +73,18 @@ public function getTimelineByRoom(?string $roomUuid = null): array {
                 'avatar'  => $comment->author_avatar,
                 'content' => $comment->content,
                 'created_at' => $comment->created_at . "Z",
-                'rating'     => (int) ($comment->rating ?? 0)                
+                'rating'     => (int) ($comment->rating ?? 0)
             ];
         }
 
         foreach ($ideas as $idea) {
-            $idea->author_name = __($idea->author_name); 
-            $idea->comments = $commentsGrouped[$idea->id] ?? []; 
+            $idea->author_name = __($idea->author_name);
+            $idea->comments = $commentsGrouped[$idea->id] ?? [];
             $idea->created_at .= "Z";
         }
 
-
-    // ... o restante da sua lógica de agrupamento de comentários permanece IGUAL ...
-    // Isso é o poder da boa arquitetura: você mudou a origem dos dados, 
-    // mas a regra de negócio de como exibir comentários não mudou.
-    
-    return $ideas;
-}
+        return $ideas;
+    }
 
 
     public function publishIdea(array $data): bool {
@@ -85,6 +92,6 @@ public function getTimelineByRoom(?string $roomUuid = null): array {
         $idea->author_id = (int) ($data['author_id'] ?? 1);
         $idea->content = (string) ($data['content'] ?? '');
 
-        return $this->repository->createIdea($idea);
+        return $this->feedRepository->createIdea($idea);
     }
 }

@@ -15,7 +15,29 @@ class FeedController extends BaseController {
 
 
     public function contributeApi(Request $request): ResponseDTO {
-    return $this->json(['message' => 'Contribuição recebida com sucesso!']);
+        $roomUuid = $request->getAttribute('uuid');
+
+        $data = $request->getJson();
+        $content = $data['content'] ?? null;
+
+        if (!$content || mb_strlen($content) < 5) {
+            return $this->json(['error' => 'Conteúdo inválido ou muito curto.'], 400);
+        }
+
+        $cookieName = "auth_room_{$roomUuid}";
+        $cookies = $request->getCookieParams();
+        $authorId = (int) ($cookies[$cookieName] ?? 0);
+
+        if ($authorId === 0) {
+            return $this->json(['error' => 'Autor não identificado na sala.'], 403);
+        }
+
+        $this->feedService->contributeToRoom($roomUuid, $authorId, $content);
+
+        return $this->json([
+            'status' => 'success',
+            'message' => 'Contribuição recebida com sucesso!'
+        ]);
     }
 
 
@@ -29,10 +51,9 @@ class FeedController extends BaseController {
         }
     }
 
-    
+
     public function getIdeasApi(Request $request): ResponseDTO {
         try {
-            // Tentamos pegar o room_id (que será o UUID) da query string
             $roomUuid = $request->getAttribute('uuid');
 
             $ideas = $this->feedService->getTimelineByRoom($roomUuid);

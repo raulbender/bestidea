@@ -13,4 +13,6 @@ interface FeedServiceInterface
 
     /** @param array<string, mixed> $data */
     public function publishIdea(array $data): bool;
+
+    public function contributeToRoom(string $roomUuid, int $authorId, string $content): void;
 }
