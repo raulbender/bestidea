@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/app/bestidea.css">
 <div class="create-room-wrapper flex justify-center items-center">
     <div class="create-room-container w-full mx-auto">
         
@@ -9,7 +10,7 @@
         <form action="<?= route('room_create') ?>" method="POST" class="create-room-form">
              <?= csrfInput($baseDTO->csrf_token) ?>
             
-            <div class="form-group mb-8">
+            <div class="form-group mb-8 text-center">
                 <textarea 
                     name="description" 
                     id="room-description"
@@ -19,8 +20,8 @@
                 ></textarea>
             </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary btn-large w-full">
+            <div class="form-actions flex justify-center">
+                <button type="submit" class="btn-primary btn flex gap-2 px-8 py-3 p-2 rounded-full shadow-lg">
                     <?= __('rooms.advance_button') ?> 
                     <span class="icon-arrow ml-2">→</span>
                 </button>
@@ -36,76 +37,3 @@
     });
 </script>
 
-<style>
-    .create-room-wrapper {
-        min-height: 80vh;
-    }
-
-    .create-room-container {
-        max-width: 600px;
-    }
-
-    .info-card {
-        background-color: var(--white);
-        padding: var(--spacing-8);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-md);
-        border-left: 6px solid var(--green-500);
-    }
-
-    /* Textarea: Mesma fonte do site + Itálico */
-    .idea-textarea {
-        min-height: 200px;
-        padding: var(--spacing-6);
-        border: 2px solid var(--gray-200);
-        border-radius: var(--radius-md);
-        background-color: var(--white);
-        transition: all var(--transition-normal);
-        resize: none;
-        
-        /* HERANÇA DE FONTE */
-        font-family: var(--font-main);
-        font-size: var(--font-size-lg);
-        font-style: italic; /* O toque que você pediu */
-        color: var(--text-main);
-    }
-
-    .idea-textarea:focus {
-        outline: none;
-        border-color: var(--green-500);
-        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
-        font-style: normal; /* Opcional: volta ao normal quando digita */
-    }
-
-    /* BOTÃO: Padronizado com a Index.phtml */
-    .btn-primary {
-        background-color: var(--primary); /* O amarelo da index */
-        color: var(--text-on-primary);
-        border: none;
-        padding: var(--spacing-4) var(--spacing-8);
-        font-size: var(--font-size-lg);
-        font-weight: var(--font-weight-bold);
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all var(--transition-normal);
-        text-transform: uppercase;
-        letter-spacing: var(--tracking-wider);
-    }
-
-    .btn-primary:hover {
-        background-color: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .icon-arrow {
-        transition: transform var(--transition-normal);
-    }
-
-    .btn-primary:hover .icon-arrow {
-        transform: translateX(8px);
-    }
-</style>
