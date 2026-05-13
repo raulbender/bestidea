@@ -6,6 +6,9 @@ namespace Framework\Extensions\AI\Gemini;
 
 abstract class BaseGeminiRobot
 {
+    public ?int $id = null;
+    public ?string $name = null;
+
     public const FLASH_LITE = "gemini-flash-lite-latest";
     public const FLASH = "gemini-flash-latest";
     public const PRO = "gemini-pro-latest";
@@ -33,11 +36,7 @@ abstract class BaseGeminiRobot
     ) {
     }
 
-
-    abstract public function getName(): string;
-
     abstract public function getSystemPrompt(): string;
-
 
     public function getApiUrl(): string
     {
