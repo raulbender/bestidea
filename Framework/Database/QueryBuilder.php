@@ -30,9 +30,12 @@ class QueryBuilder {
     }
 
     public function select(string ...$columns): self {
-
         $this->selects = array_values($columns);
+        return $this;
+    }
 
+    public function selectRaw(string $expression): self {
+        $this->selects[] = $expression;
         return $this;
     }
 
