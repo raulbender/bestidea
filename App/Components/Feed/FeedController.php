@@ -40,6 +40,34 @@ class FeedController extends BaseController {
         ]);
     }
 
+    public function commentApi(Request $request): ResponseDTO {
+        $ideaId = (int) $request->getAttribute('idea_id');
+
+        $data = $request->getJson();
+        $content = $data['content'] ?? null;
+        $rating = isset($data['rating']) ? (int) $data['rating'] : null;
+
+        $roomUuid = $request->getAttribute('uuid');
+        $cookieName = "auth_room_{$roomUuid}";
+        $cookies = $request->getCookieParams();
+        $authorId = (int) ($cookies[$cookieName] ?? 0);
+
+        if (!$content || mb_strlen($content) < 3) {
+            return $this->json(['error' => 'Comentário inválido ou muito curto.'], 400);
+        }
+
+        if ($rating !== null && ($rating < 1 || $rating > 5)) {
+            return $this->json(['error' => 'Avaliação deve ser entre 1 e 5.'], 400);
+        }
+
+        $this->feedService->addComment($ideaId, $authorId, $content, $rating);
+
+        return $this->json([
+            'status' => 'success',
+            'message' => 'Comentário enviado com sucesso!'
+        ]);
+    }   
+
 
     public function getIdeasApi(Request $request): ResponseDTO {
         try {

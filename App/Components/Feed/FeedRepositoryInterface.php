@@ -22,9 +22,12 @@ interface FeedRepositoryInterface
     public function findCommentsByIdeaIds(array $ids): array;
 
     /** * Registra uma nova ideia no diário de bordo.
-     * @param IdeaEntity $idea 
-     */
+     * @param IdeaEntity $idea  */
     public function createIdea(IdeaEntity $idea): bool;
+
+    /** * Registra um novo comentário para uma ideia.
+     * @param CommentEntity $comment  */
+    public function createComment(CommentEntity $comment): bool;
 
 
 }

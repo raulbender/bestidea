@@ -23,6 +23,16 @@ class FeedService implements FeedServiceInterface {
         $this->feedRepository->createIdea($idea);
     }
 
+    public function addComment(int $ideaId, int $authorId, string $content, ?int $rating): void {
+        $comment = new CommentEntity();
+        $comment->idea_id = $ideaId;
+        $comment->author_id = $authorId;
+        $comment->content = $content;
+        $comment->rating = $rating;
+
+        $this->feedRepository->createComment($comment);
+    }
+
     public function getTimeline(): array {
         /** @var array <IdeaEntity> $ideas */
         $ideas = $this->feedRepository->findAllWithAuthors();

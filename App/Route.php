@@ -34,6 +34,12 @@ class Route extends BaseRoute {
             'controller' => FeedController::class,
             'action' => 'contributeApi',
         ];
+
+        $this->routes['comment_api'] = [
+            'route' => '/{lang}/api/comment/{uuid}/{idea_id}', 
+            'controller' => FeedController::class,
+            'action' => 'commentApi',
+        ];
         
         $this->routes['room_index'] = [
             'route' => '/{lang}/room',

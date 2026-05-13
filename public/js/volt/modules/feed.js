@@ -93,7 +93,7 @@ function renderFeed(ideas) {
                               placeholder="${window.VoltI18n.translations.comment_placeholder}"></textarea>
                     <div class="flex justify-end gap-2">
                         <button class="btn text-muted text-xs" onclick="toggleCommentForm(${idea.id})">${window.VoltI18n.translations.cancel}</button>
-                        <button class="btn btn-primary px-4 py-1 text-xs" onclick="submitComment(${idea.id})">${window.VoltI18n.translations.send}</button>
+                        <button id="btn-submit-${idea.id}" class="btn btn-primary px-4 py-1 text-xs" onclick="submitComment(${idea.id})">${window.VoltI18n.translations.send}</button>
                     </div>
                 </div>
                 
@@ -154,7 +154,6 @@ function setRating(ideaId, value) {
 
     input.value = value;
 
-    // Removemos a cor manual via JS e usamos CLASSES, que é mais limpo (Sênior style)
     stars.forEach(star => {
         const starValue = parseInt(star.getAttribute('data-value'));
         
@@ -171,30 +170,61 @@ function setRating(ideaId, value) {
 async function submitComment(ideaId) {
     const textEl = document.getElementById(`comment-text-${ideaId}`);
     const ratingEl = document.getElementById(`rating-input-${ideaId}`);
+    const btnSubmit = document.getElementById(`btn-submit-${ideaId}`);
     
     const content = textEl.value.trim();
     const rating = parseInt(ratingEl.value);
 
-    // Validação obrigatória
     if (rating === 0) {
-        alert("Por favor, selecione uma avaliação de 1 a 5 estrelas! ⭐");
+        VoltAlert.show('Atenção', "Por favor, selecione uma avaliação! ⭐", 'warning');
         return;
     }
-
     if (content.length < 3) {
-        alert("O comentário precisa de pelo menos 3 caracteres.");
+        VoltAlert.show('Atenção', "O comentário é muito curto.", 'warning');
         return;
     }
 
-    console.log("--- Payload de Comentário ---");
-    console.log(`Ideia ID: ${ideaId}`);
-    console.log(`Rating: ${rating} estrelas`);
-    console.log(`Conteúdo: ${content}`);
-    
-    // Sucesso inicial: Limpar e fechar
-    toggleCommentForm(ideaId);
-    textEl.value = '';
-    setRating(ideaId, 0); // Reseta as estrelas
+    const originalText = btnSubmit.innerHTML;
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = '...';
+
+    try {
+        const lang = window.location.pathname.split('/')[1] || window.VoltI18n.lang || 'en';
+        const apiUrl = `/${lang}/api/comment/${window.ROOM_CONTEXT.uuid}/${ideaId}`;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken 
+            },
+            body: JSON.stringify({
+                content: content,
+                rating: rating
+            })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            VoltAlert.show('Sucesso', "Comentário enviado!", 'success');
+            
+            textEl.value = '';
+            setRating(ideaId, 0);
+            toggleCommentForm(ideaId);
+            
+            loadFeed(); 
+        } else {
+            throw new Error(result.error || 'Erro ao comentar');
+        }
+
+    } catch (error) {
+        VoltAlert.show('Erro', error.message, 'danger');
+    } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = originalText;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', loadFeed);

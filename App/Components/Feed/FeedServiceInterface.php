@@ -15,4 +15,6 @@ interface FeedServiceInterface
     public function publishIdea(array $data): bool;
 
     public function contributeToRoom(string $roomUuid, int $authorId, string $content): void;
+
+    public function addComment(int $ideaId, int $authorId, string $content, ?int $rating): void;
 }
