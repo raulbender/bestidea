@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/volt/modules/feed.css">
+<link rel="stylesheet" href="/css/app/bestidea.css">
 
 <div class="content-wrapper">
     <div class="container layout-single">
@@ -20,6 +21,110 @@
                     </span>
                 </div>
             </div>
+
+
+            <div class="flex justify-center my-8">
+                <button id="btn-show-form" class="btn-primary btn flex items-center gap-2 px-8 py-3 rounded-full shadow-lg">
+                    <?php icon('plus', 'w-5 h-5'); ?>
+                    <?= __('rooms.contribute') ?>
+                </button>
+            </div>
+
+            <div id="idea-form-container" class="hidden volt-animate mb-12 mt-12 mx-auto max-w-2xl">
+                <div class="bg-main border border-accent p-6 rounded-lg shadow-xl text-center">
+                    <h3 class="mb-4 font-bold"><?= __('rooms.share_your_idea') ?></h3>
+                    <textarea
+                        id="idea-content"
+                        class="idea-textarea w-full bg-subtle border-none rounded-md p-4 text-main focus:ring-2 focus:ring-accent"
+                        rows="4"
+                        placeholder="<?= __('rooms.idea_placeholder') ?>"></textarea>
+
+                    <div class="flex justify-center gap-4 mt-4">
+                        <button id="btn-cancel-idea" class="btn text-muted hover:text-main">
+                            <?= __('common.cancel') ?>
+                        </button>
+                        <button id="btn-submit-idea" class="btn btn-primary  btn-accent px-6 py-2">
+                            <?= __('rooms.send_idea') ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const btnShow = document.getElementById('btn-show-form');
+    const btnCancel = document.getElementById('btn-cancel-idea');
+    const btnSubmit = document.getElementById('btn-submit-idea');
+    const container = document.getElementById('idea-form-container');
+    const textarea = document.getElementById('idea-content');
+
+    // --- Ação de Toggle (O que faltava) ---
+    const toggleForm = () => {
+        container.classList.toggle('hidden');
+        if (!container.classList.contains('hidden')) {
+            textarea.focus();
+            btnShow.parentElement.classList.add('hidden'); // Esconde o botão "+" ao abrir
+        } else {
+            btnShow.parentElement.classList.remove('hidden'); // Mostra de volta ao cancelar
+        }
+    };
+
+    btnShow.addEventListener('click', toggleForm);
+    btnCancel.addEventListener('click', () => {
+        textarea.value = '';
+        toggleForm();
+    });
+
+    // --- Ação de Envio (O Próximo Passo) ---
+    btnSubmit.addEventListener('click', async () => {
+        const content = textarea.value.trim();
+        
+        if (content.length < 5) {
+            VoltAlert.show('Ops!', 'Sua ideia precisa de um pouco mais de substância.', 'error');
+            return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = 'Enviando...';
+
+        try {
+            const lang = window.ROOM_CONTEXT.lang || 'pt';
+            const response = await fetch(`/${lang}/api/ideas/create`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: content,
+                    room_uuid: window.ROOM_CONTEXT.uuid // Usando o UUID que corrigimos ontem!
+                })
+            });
+
+            if (response.ok) {
+                textarea.value = '';
+                toggleForm();
+                VoltAlert.show('Sucesso!', 'Sua ideia foi registrada no diário de bordo.', 'success');
+                
+                // Recarrega o feed sem dar F5 na página
+                if (typeof loadFeed === 'function') loadFeed(); 
+            }
+        } catch (error) {
+            VoltAlert.show('Erro!', 'O mar está agitado. Tente novamente em instantes.', 'error');
+        } finally {
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = "<?= __('room.send_idea') ?>";
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
         </header>
 
         <script>
@@ -27,7 +132,7 @@
                 uuid: "<?= $data->uuid ?>",
                 msg_empty: "<?= __('rooms.without_ideas') ?>",
                 author: {
-                    name: "<?= $data->author ?>", 
+                    name: "<?= $data->author ?>",
                     avatar: "<?= $data->avatar ?>"
                 }
             };
