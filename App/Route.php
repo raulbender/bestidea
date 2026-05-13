@@ -29,12 +29,12 @@ class Route extends BaseRoute {
             'action' => 'getIdeasApi',
         ];
 
-        // $this->routes['feed_view'] = [
-        //     'route' => '/{lang}/feed',
-        //     'controller' => FeedController::class,
-        //     'action' => 'index',
-        // ];
-
+        $this->routes['contribute_api'] = [
+            'route' => '/{lang}/api/contribute/{uuid}', 
+            'controller' => FeedController::class,
+            'action' => 'contributeApi',
+        ];
+        
         $this->routes['room_index'] = [
             'route' => '/{lang}/room',
             'controller' => RoomController::class,

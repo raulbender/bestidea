@@ -13,10 +13,11 @@ class FeedController extends BaseController {
         parent::__construct();
     }
 
-    // public function index(): ResponseDTO
-    // {        
-    //     return $this->render('feed/feed');
-    // }
+
+    public function contributeApi(Request $request): ResponseDTO {
+    return $this->json(['message' => 'Contribuição recebida com sucesso!']);
+    }
+
 
     public function getIdeasApi_Old(): ResponseDTO {
         try {
@@ -28,8 +29,7 @@ class FeedController extends BaseController {
         }
     }
 
-    // App/Components/Feed/FeedController.php
-
+    
     public function getIdeasApi(Request $request): ResponseDTO {
         try {
             // Tentamos pegar o room_id (que será o UUID) da query string

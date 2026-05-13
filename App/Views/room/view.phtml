@@ -43,7 +43,7 @@
                         <button id="btn-cancel-idea" class="btn text-muted hover:text-main">
                             <?= __('common.cancel') ?>
                         </button>
-                        <button id="btn-submit-idea" class="btn btn-primary  btn-accent px-6 py-2">
+                        <button id="btn-submit-idea" class="btn btn-primary  btn-accent px-6 py-2">                            
                             <?= __('rooms.send_idea') ?>
                         </button>
                     </div>
@@ -87,10 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSubmit.innerHTML = 'Enviando...';
 
         try {
-            const lang = window.ROOM_CONTEXT.lang || 'pt';
-            const response = await fetch(`/${lang}/api/ideas/create`, {
+            const lang = window.location.pathname.split('/')[1] || window.VoltI18n.lang || 'en';
+            const apiUrl = `/${lang}/api/contribute/${window.ROOM_CONTEXT.uuid}`;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            const response = await fetch(apiUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                           'X-CSRF-TOKEN': csrfToken },
                 body: JSON.stringify({
                     content: content,
                     room_uuid: window.ROOM_CONTEXT.uuid // Usando o UUID que corrigimos ontem!
