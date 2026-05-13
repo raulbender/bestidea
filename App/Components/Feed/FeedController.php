@@ -41,17 +41,6 @@ class FeedController extends BaseController {
     }
 
 
-    public function getIdeasApi_Old(): ResponseDTO {
-        try {
-            $ideas = $this->feedService->getTimeline();
-
-            return $this->json($ideas);
-        } catch (\Throwable $e) {
-            return $this->json(['error' => 'Falha ao navegar no feed'], 500);
-        }
-    }
-
-
     public function getIdeasApi(Request $request): ResponseDTO {
         try {
             $roomUuid = $request->getAttribute('uuid');
