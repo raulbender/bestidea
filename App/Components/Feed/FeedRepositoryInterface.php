@@ -23,7 +23,7 @@ interface FeedRepositoryInterface
 
     /** * Registra uma nova ideia no diário de bordo.
      * @param IdeaEntity $idea  */
-    public function createIdea(IdeaEntity $idea): bool;
+    public function createIdea(IdeaEntity $idea): int;
 
     /** * Registra um novo comentário para uma ideia.
      * @param CommentEntity $comment  */

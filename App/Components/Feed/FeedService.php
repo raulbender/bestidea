@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\Components\Feed;
 
+use App\Components\Author\AuthorRepositoryInterface;
 use App\Components\Room\RoomServiceInterface;
+use App\Components\Robots\AvocadoRobot;
+use Framework\Extensions\AI\Gemini\GeminiClient;
+use Framework\Container;
 
 class FeedService implements FeedServiceInterface {
     public function __construct(
         private FeedRepositoryInterface $feedRepository,
-        private RoomServiceInterface $roomService
+        private RoomServiceInterface $roomService,
+        private AuthorRepositoryInterface $authorRepository
     ) {
     }
 
@@ -20,7 +25,34 @@ class FeedService implements FeedServiceInterface {
         $idea->room_id = $room_id;
         $idea->content = $content;
 
-        $this->feedRepository->createIdea($idea);
+        $lastIdeaId = $this->feedRepository->createIdea($idea);
+        $room = $this->roomService->getRoomByUuid($roomUuid);
+        $authorName = $this->authorRepository->getAuthorById($authorId)->name;
+        $authorName = __($authorName);
+        $this->generateEvaluationFromAvocadoRobot($content, $lastIdeaId, $room->description, $authorName);
+    }
+
+    private function generateEvaluationFromAvocadoRobot(string $idea, int $ideaId, string $description, string $authorName): void {
+        $avocadoRobot = new AvocadoRobot(Container::$config->geminiKey);
+        $geminiClient = new GeminiClient($avocadoRobot);
+        $prompt = "Contexto da Sala: {$description}\n";
+        $prompt .= "Autor da Ideia: {$authorName}\n";
+        $prompt .= "Ideia para analisar: " . $idea;
+
+        $history = [
+            [
+                'role' => 'user',
+                'parts' => [
+                    ['text' => $prompt]
+                ]
+            ]
+        ];
+        $feedback = $geminiClient->generateResponseFromRobot($avocadoRobot, $history);
+        if (!$feedback) return;
+
+        $rate = $avocadoRobot->extractRatingFromFeedback($feedback);
+        $feedbackClean = preg_replace('/\[NOTA:\d\]/', '', $feedback);
+        $this->addComment($ideaId, $avocadoRobot->id, trim($feedbackClean), $rate);
     }
 
     public function addComment(int $ideaId, int $authorId, string $content, ?int $rating): void {
@@ -100,12 +132,4 @@ class FeedService implements FeedServiceInterface {
         return $ideas;
     }
 
-
-    public function publishIdea(array $data): bool {
-        $idea = new IdeaEntity();
-        $idea->author_id = (int) ($data['author_id'] ?? 1);
-        $idea->content = (string) ($data['content'] ?? '');
-
-        return $this->feedRepository->createIdea($idea);
-    }
 }
