@@ -69,7 +69,7 @@ function renderFeed(ideas) {
                 <div class="text-main mb-4">${idea.content}</div>
 
                 <div class="flex gap-4 mb-4 border-t border-subtle pt-3">
-                    <button class="btn btn-comment-toggle text-accent flex items-center gap-1 text-sm font-semibold" 
+                    <button id="btn-comment-toggle-${idea.id}" class="btn btn-comment-toggle text-accent flex items-center gap-1 text-sm font-semibold" 
                             onclick="toggleCommentForm(${idea.id})">
                         💬 ${window.VoltI18n.translations.comment}
                     </button>
@@ -128,17 +128,24 @@ function renderComments(comments) {
     `).join('');
 }
 
-// Abre e fecha o formulário da ideia específica
+
 function toggleCommentForm(ideaId) {
     const form = document.getElementById(`comment-form-${ideaId}`);
-    if (form) {
-        form.classList.toggle('hidden');
-        if (!form.classList.contains('hidden')) {
+    const btnToggle = document.getElementById(`btn-comment-toggle-${ideaId}`);
+    
+    if (form && btnToggle) {
+        const isHidden = form.classList.contains('hidden');
+        
+        if (isHidden) {
+            form.classList.remove('hidden');
+            btnToggle.classList.add('hidden'); // Some com o botão ao abrir
             document.getElementById(`comment-text-${ideaId}`).focus();
+        } else {
+            form.classList.add('hidden');
+            btnToggle.classList.remove('hidden'); // Reaparece ao cancelar/fechar
         }
     }
 }
-
 
 function setRating(ideaId, value) {
     const container = document.querySelector(`.star-rating[data-idea-id="${ideaId}"]`);
