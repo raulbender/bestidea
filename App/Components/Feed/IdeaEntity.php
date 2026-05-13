@@ -7,6 +7,7 @@ namespace App\Components\Feed;
 class IdeaEntity
 {
     public ?int $id = null;
+    public ?int $room_id = null;
     public ?int $author_id = null;
     public ?string $content = null;
     public ?string $created_at = null;
