@@ -63,29 +63,6 @@
         font-style: normal; /* Opcional: volta ao normal quando digita */
     }
 
-    /* BOTÃO: Padronizado com a Index.phtml */
-    .btn-primaryX {
-        background-color: var(--primary); /* O amarelo da index */
-        color: var(--text-on-primary);
-        border: none;
-        padding: var(--spacing-4) var(--spacing-8);
-        font-size: var(--font-size-lg);
-        font-weight: var(--font-weight-bold);
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all var(--transition-normal);
-        text-transform: uppercase;
-        letter-spacing: var(--tracking-wider);
-    }
-
-    .btn-primaryX:hover {
-        background-color: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-    }
 
     .icon-arrow {
         transition: transform var(--transition-normal);
@@ -94,3 +71,14 @@
     .btn-primary:hover .icon-arrow {
         transform: translateX(8px);
     }
+
+
+    .star-icon {
+    transition: transform 0.1s ease, color 0.2s ease;
+}
+.star-icon:hover {
+    transform: scale(1.2);
+}
+.star-icon:active {
+    transform: scale(0.9);
+}
