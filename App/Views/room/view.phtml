@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                            'X-CSRF-TOKEN': csrfToken },
                 body: JSON.stringify({
                     content: content,
-                    room_uuid: window.ROOM_CONTEXT.uuid // Usando o UUID que corrigimos ontem!
+                    room_uuid: window.ROOM_CONTEXT.uuid 
                 })
             });
 
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             VoltAlert.show('Erro!', 'O mar está agitado. Tente novamente em instantes.', 'error');
         } finally {
             btnSubmit.disabled = false;
-            btnSubmit.innerHTML = "<?= __('room.send_idea') ?>";
+            btnSubmit.innerHTML = "<?= __('rooms.send_idea') ?>";
         }
     });
 });
