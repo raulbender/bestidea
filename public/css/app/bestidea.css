@@ -71,14 +71,37 @@
     transform: translateX(8px);
 }
 
+/* Container das estrelas */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse; /* Inverte a ordem para o seletor ~ funcionar da esquerda para a direita */
+    justify-content: flex-end;
+}
+
 .star-icon {
-    transition:
-        transform 0.1s ease,
-        color 0.2s ease;
+    transition: transform 0.1s ease, color 0.2s ease;
+    color: var(--gray-300); /* Cor padrão (cinza) */
+    cursor: pointer;
+    font-size: 1.5rem;
 }
-.star-icon:hover {
-    transform: scale(1.2);
+
+/* Quando passar o mouse: pinta a estrela e todas as ANTERIORES (que no código são as próximas devido ao row-reverse) */
+.star-icon:hover,
+.star-icon:hover ~ .star-icon {
+    color: var(--yellow-400);
+    transform: scale(1.1);
 }
-.star-icon:active {
-    transform: scale(0.9);
+
+/* Classe de estado FIXO (quando o Bill clicar) */
+.star-icon.active,
+.star-icon.active ~ .star-icon {
+    color: var(--yellow-500); /* yellow-600 (um pouco mais escuro para diferenciar do hover) */
+}
+
+.star-muted {
+    color: var(--text-muted);
+}
+
+.star-primary {
+    color: var(--primary);
 }
