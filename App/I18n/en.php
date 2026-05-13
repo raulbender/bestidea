@@ -51,6 +51,10 @@ return [
         'd' => 'd',
         'error' => 'Error while navigating these waters',        
         'comment' => 'Comment',
+        'comment_placeholder' => 'Write your review or suggestion...',
+        'send' => 'Send',
+        'cancel' => 'Cancel',
+        'avaliation' => 'Avaliation',
     ],
     'author' => [
         'fruit' => [

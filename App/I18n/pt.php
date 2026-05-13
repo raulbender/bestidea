@@ -51,6 +51,10 @@ return [
         'd' => 'd',
         'error' => 'Erro ao navegar nessas águas',
         'comment' => 'Comentar',
+        'comment_placeholder' => 'Escreva sua crítica ou sugestão...',
+        'send' => 'Enviar',
+        'cancel' => 'Cancelar',
+        'avaliation' => 'Avaliação',
     ],
     'author' => [
         'fruit' => [
