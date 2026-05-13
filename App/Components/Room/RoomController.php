@@ -9,7 +9,7 @@ use Framework\Http\Request;
 use Framework\Http\ResponseDTO;
 
 class RoomController extends BaseController {
-  public function __construct(private RoomServiceInterface $service) {
+  public function __construct(private RoomServiceInterface $roomService) {
     parent::__construct();
   }
 
@@ -22,17 +22,16 @@ class RoomController extends BaseController {
   public function create(Request $request): ResponseDTO {
     $description = $request->pullString('description');
 
-    $uuid = $this->service->createRoom($description);
-
-    // Redireciona para evitar reenvio de formulário (F5)
-    return $this->redirect(route('room_view', ['uuid' => $uuid]));
+    $uuid = $this->roomService->createRoom($description);
+    
+    return $this->redirect(route('room_view', ['uuid' => $uuid])); // Redireciona para evitar reenvio de formulário (F5)
   }
 
 
   public function view(Request $request): ResponseDTO {
     $uuid = $request->getAttribute('uuid');
 
-    $room = $this->service->getRoomByUuid($uuid);
+    $room = $this->roomService->getRoomByUuid($uuid);
     if (!$room) {
       throw new \RuntimeException("Sala não encontrada ou expirada.", 404);
     }
@@ -41,7 +40,7 @@ class RoomController extends BaseController {
     $cookies = $request->getCookieParams();
     $authorId = $cookies[$cookieName] ?? null;
 
-    $roomDTO = $this->service->getRoomDTO($uuid, $authorId);
+    $roomDTO = $this->roomService->getRoomDTO($uuid, $authorId);
 
     $response = $this->render('room/view', $roomDTO);
 
