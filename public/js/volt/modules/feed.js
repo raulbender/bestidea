@@ -71,13 +71,13 @@ function renderFeed(ideas) {
                 <div class="flex gap-4 mb-4 border-t border-subtle pt-3">
                     <button class="btn btn-comment-toggle text-accent flex items-center gap-1 text-sm font-semibold" 
                             onclick="toggleCommentForm(${idea.id})">
-                        💬 ${window.VoltI18n.translations.comment || 'Comment'}
+                        💬 ${window.VoltI18n.translations.comment}
                     </button>
                 </div>
 
                 <div id="comment-form-${idea.id}" class="hidden mb-6 volt-animate bg-subtle p-4 rounded-md">
                     <div class="flex items-center gap-2 mb-3">
-                       <span class="text-xs text-muted uppercase font-bold">${window.VoltI18n.translations.avaliation || 'Avaliation'}</span>               
+                       <span class="text-xs text-muted uppercase font-bold">${window.VoltI18n.translations.avaliation}</span>               
                     <div class="star-rating flex gap-1" data-idea-id="${idea.id}">
                         <span class="star-icon" data-value="5" onclick="setRating(${idea.id}, 5)">★</span>
                         <span class="star-icon" data-value="4" onclick="setRating(${idea.id}, 4)">★</span>
@@ -90,10 +90,10 @@ function renderFeed(ideas) {
                     </div>
                     <textarea id="comment-text-${idea.id}" 
                               class="comment-textarea w-full text-sm mb-2" 
-                              placeholder="${window.VoltI18n.translations.comment_placeholder || 'Write your review or suggestion...'}"></textarea>
+                              placeholder="${window.VoltI18n.translations.comment_placeholder}"></textarea>
                     <div class="flex justify-end gap-2">
-                        <button class="btn text-muted text-xs" onclick="toggleCommentForm(${idea.id})">${window.VoltI18n.translations.cancel || 'Cancel'}</button>
-                        <button class="btn btn-primary px-4 py-1 text-xs" onclick="submitComment(${idea.id})">${window.VoltI18n.translations.send || 'Send'}</button>
+                        <button class="btn text-muted text-xs" onclick="toggleCommentForm(${idea.id})">${window.VoltI18n.translations.cancel}</button>
+                        <button class="btn btn-primary px-4 py-1 text-xs" onclick="submitComment(${idea.id})">${window.VoltI18n.translations.send}</button>
                     </div>
                 </div>
                 
