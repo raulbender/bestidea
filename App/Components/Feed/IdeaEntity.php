@@ -16,4 +16,6 @@ class IdeaEntity
     public ?string $author_name = null;
     public ?string $author_avatar = null;
     public ?array $comments = null;
+    public ?float $average_rating = null;
+    public ?int $total_comments = null;
 }
