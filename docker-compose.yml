@@ -27,6 +27,7 @@ services:
     
   db:
     image: mysql:8.0
+    command: --default-time-zone="+00:00"
     container_name: voltcontainer_db
     restart: always
     volumes:

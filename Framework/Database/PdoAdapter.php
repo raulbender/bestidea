@@ -38,6 +38,7 @@ class PdoAdapter implements DatabaseInterface
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4",
             ]);
+            $this->pdo->exec("SET time_zone = '+00:00'");
         } catch (PDOException $e) {
             Logger::error("Connection failed: " . $e->getMessage());
             throw $e;
