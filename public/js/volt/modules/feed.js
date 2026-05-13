@@ -139,40 +139,6 @@ function toggleCommentForm(ideaId) {
     }
 }
 
-// Função que faremos a seguir para bater no FeedController
-// async function submitComment(ideaId) {
-//     const textEl = document.getElementById(`comment-text-${ideaId}`);
-//     const content = textEl.value.trim();
-
-//     if (content.length < 3) {
-//         alert("Comentário muito curto!");
-//         return;
-//     }
-
-//     console.log(`Enviando comentário para a ideia ${ideaId}: ${content}`);
-//     // Próximo passo: o fetch para a API
-// }
-
-// function setRating(ideaId, value) {
-//     const container = document.querySelector(`.star-rating[data-idea-id="${ideaId}"]`);
-//     const stars = container.querySelectorAll('.star-icon');
-//     const input = document.getElementById(`rating-input-${ideaId}`);
-
-//     // Atualiza o valor no input escondido
-//     input.value = value;
-
-//     // Feedback visual: Pinta as estrelas
-//     stars.forEach(star => {
-//         const starValue = parseInt(star.getAttribute('data-value'));
-//         if (starValue <= value) {
-//             star.classList.remove('text-gray-400');
-//             star.classList.add('text-yellow-500'); // Cor de destaque
-//         } else {
-//             star.classList.remove('text-yellow-500');
-//             star.classList.add('text-gray-400');
-//         }
-//     });
-// }
 
 function setRating(ideaId, value) {
     const container = document.querySelector(`.star-rating[data-idea-id="${ideaId}"]`);
