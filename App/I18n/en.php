@@ -47,10 +47,10 @@ return [
         'now' => 'now',
         's' => 's',
         'min' => 'min',
-
         'h' => 'h',
         'd' => 'd',
-        'error' => 'Error while navigating these waters',
+        'error' => 'Error while navigating these waters',        
+        'comment' => 'Comment',
     ],
     'author' => [
         'fruit' => [

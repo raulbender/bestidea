@@ -50,6 +50,7 @@ return [
         'h' => 'h',
         'd' => 'd',
         'error' => 'Erro ao navegar nessas águas',
+        'comment' => 'Comentar',
     ],
     'author' => [
         'fruit' => [
