@@ -1,80 +1,80 @@
-    .create-room-wrapper {
-        min-height: 80vh;
-    }
+.create-room-wrapper {
+    min-height: 80vh;
+}
 
-    .create-room-container {
-        max-width: 600px;
-    }
+.create-room-container {
+    max-width: 600px;
+}
 
-    .info-card {
-        background-color: var(--white);
-        padding: var(--spacing-8);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-md);
-        border-left: 6px solid var(--green-500);
-    }
+.info-card {
+    background-color: var(--white);
+    padding: var(--spacing-8);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--green-500);
+}
 
-    /* Textarea: Mesma fonte do site + Itálico */
-    .idea-textarea {
-        min-height: 200px;
-        padding: var(--spacing-6);
-        border: 2px solid var(--gray-200);
-        border-radius: var(--radius-md);
-        background-color: var(--white);
-        transition: all var(--transition-normal);
-        resize: none;
-        
-        /* HERANÇA DE FONTE */
-        font-family: var(--font-main);
-        font-size: var(--font-size-lg);
-        font-style: italic; /* O toque que você pediu */
-        color: var(--text-main);
-    }
+/* Textarea: Mesma fonte do site + Itálico */
+.idea-textarea {
+    min-height: 200px;
+    padding: var(--spacing-6);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background-color: var(--white);
+    transition: all var(--transition-normal);
+    resize: none;
 
-    .idea-textarea:focus {
-        outline: none;
-        border-color: var(--green-500);
-        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
-        font-style: normal; /* Opcional: volta ao normal quando digita */
-    }
+    /* HERANÇA DE FONTE */
+    font-family: var(--font-main);
+    font-size: var(--font-size-lg);
+    font-style: italic; /* O toque que você pediu */
+    color: var(--text-main);
+}
 
-      /* Textarea: Mesma fonte do site + Itálico */
-    .comment-textarea {
-        min-height: 100px;
-        min-width: 200px;
-        padding: var(--spacing-6);
-        border: 2px solid var(--gray-200);
-        border-radius: var(--radius-md);
-        background-color: var(--white);
-        transition: all var(--transition-normal);
-        resize: none;
-        
-        /* HERANÇA DE FONTE */
-        font-family: var(--font-main);
-        font-size: var(--font-size-lg);
-        font-style: italic; /* O toque que você pediu */
-        color: var(--text-main);
-    }
+.idea-textarea:focus {
+    outline: none;
+    border-color: var(--green-500);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+    font-style: normal; /* Opcional: volta ao normal quando digita */
+}
 
-    .comment-textarea:focus {
-        outline: none;
-        border-color: var(--green-500);
-        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
-        font-style: normal; /* Opcional: volta ao normal quando digita */
-    }
+/* Textarea: Mesma fonte do site + Itálico */
+.comment-textarea {
+    min-height: 100px;
+    min-width: 200px;
+    padding: var(--spacing-6);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background-color: var(--white);
+    transition: all var(--transition-normal);
+    resize: none;
 
+    /* HERANÇA DE FONTE */
+    font-family: var(--font-main);
+    font-size: var(--font-size-lg);
+    font-style: italic; /* O toque que você pediu */
+    color: var(--text-main);
+}
 
-    .icon-arrow {
-        transition: transform var(--transition-normal);
-    }
+.comment-textarea:focus {
+    outline: none;
+    border-color: var(--green-500);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+    font-style: normal; /* Opcional: volta ao normal quando digita */
+}
 
-    .btn-primary:hover .icon-arrow {
-        transform: translateX(8px);
-    }
+.icon-arrow {
+    transition: transform var(--transition-normal);
+}
 
+.btn-primary:hover .icon-arrow {
+    transform: translateX(8px);
+}
 
-    .star-icon {
-    transition: transform 0.1s ease, color 0.2s ease;
+.star-icon {
+    transition:
+        transform 0.1s ease,
+        color 0.2s ease;
 }
 .star-icon:hover {
     transform: scale(1.2);
