@@ -7,18 +7,16 @@ namespace Framework\Http;
 use Framework\Container;
 use Framework\Utils\Logger\Logger;
 
-class CsrfService implements CsrfServiceInterface
-{
+class CsrfService implements CsrfServiceInterface {
     private const SESSION_KEY = '_csrf_token';
     /** @var array<string> $allowedPaths */
     private array $allowedPaths = ['/payment'];
 
-    public function __construct(private SessionInterface $session)
-    {
+    public function __construct(private SessionInterface $session) {
     }
 
-    public function checkCsrf(): void
-    {
+
+    public function checkCsrf(): void {
         $request = Container::resolve(Request::class);
         $path = $request->getPath();
 
@@ -28,7 +26,12 @@ class CsrfService implements CsrfServiceInterface
 
         if ($request->isPost()) {
             $token = $request->pullString('_token');
-            if (! $this->isValid($token)) {            
+
+            if (!$token) {
+                $token = $request->getHeader('X-CSRF-TOKEN');
+            }
+
+            if (!$this->isValid($token)) {
                 throw new \Exception("Invalid CSRF Token. Request denied for security reasons.", 403);
             }
         }
@@ -36,8 +39,7 @@ class CsrfService implements CsrfServiceInterface
 
 
 
-    public function getToken(): string
-    {
+    public function getToken(): string {
         if (! $this->session->has(self::SESSION_KEY)) {
             $token = bin2hex(random_bytes(32));
             $this->session->set(self::SESSION_KEY, $token);
@@ -47,8 +49,7 @@ class CsrfService implements CsrfServiceInterface
     }
 
 
-    public function isValid(string $submittedToken): bool
-    {
+    public function isValid(string $submittedToken): bool {
         $storedToken = $this->session->pullString(self::SESSION_KEY);
         if (empty($storedToken) || empty($submittedToken)) {
             return false;
@@ -56,6 +57,4 @@ class CsrfService implements CsrfServiceInterface
 
         return hash_equals($storedToken, $submittedToken);
     }
-
-
 }
