@@ -39,6 +39,11 @@ class QueryBuilder {
         return $this;
     }
 
+    public function max(string $column): self {
+        $this->selects[] = "MAX({$column})";
+        return $this;
+    }
+
     public function where(string $column, string $operator, mixed $value = null): self {
         if ($value === null) {
             $value = $operator;
