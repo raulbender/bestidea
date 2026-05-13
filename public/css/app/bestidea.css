@@ -104,4 +104,20 @@
 
 .star-primary {
     color: var(--primary);
+    filter: drop-shadow(0 0 2px rgba(250, 204, 21, 0.4));
+}
+
+.rating-badge {
+    background: var(--bg-subtle);
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rating-high {
+    border-color: var(--yellow-500);
+    background: rgba(234, 179, 8, 0.1);
 }
