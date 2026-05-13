@@ -38,6 +38,31 @@
         font-style: normal; /* Opcional: volta ao normal quando digita */
     }
 
+      /* Textarea: Mesma fonte do site + Itálico */
+    .comment-textarea {
+        min-height: 100px;
+        min-width: 200px;
+        padding: var(--spacing-6);
+        border: 2px solid var(--gray-200);
+        border-radius: var(--radius-md);
+        background-color: var(--white);
+        transition: all var(--transition-normal);
+        resize: none;
+        
+        /* HERANÇA DE FONTE */
+        font-family: var(--font-main);
+        font-size: var(--font-size-lg);
+        font-style: italic; /* O toque que você pediu */
+        color: var(--text-main);
+    }
+
+    .comment-textarea:focus {
+        outline: none;
+        border-color: var(--green-500);
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+        font-style: normal; /* Opcional: volta ao normal quando digita */
+    }
+
     /* BOTÃO: Padronizado com a Index.phtml */
     .btn-primaryX {
         background-color: var(--primary); /* O amarelo da index */
