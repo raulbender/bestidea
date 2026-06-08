@@ -1,7 +1,6 @@
-FROM php:8.2-cli
+FROM php:8.4-cli
 
 # 1. Instala as dependências do sistema e extensões PHP necessárias
-# (Adicionamos o 'git' aqui porque o Composer precisa dele para baixar pacotes)
 RUN apt-get update && apt-get install -y \
     unzip \
     git \
@@ -9,24 +8,23 @@ RUN apt-get update && apt-get install -y \
     && pecl install redis \
     && docker-php-ext-enable redis sockets
 
-# 2. Instala o Composer trazendo o binário oficial direto da imagem do Composer
-# (Essa é uma manobra sênior de multi-stage build, super limpa e rápida!)
+# 2. Instala o Composer trazendo o binário oficial
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 3. Define o diretório de trabalho onde o app vai morar
+# 3. Define o diretório de trabalho
 WORKDIR /var/www/html
 
-# 4. Copia os arquivos do seu repositório para dentro do container
+# 4. Copia os arquivos do projeto
 COPY . .
 
-# 5. Executa o comando para instalar as dependências do Composer em modo de produção
-# (--no-dev remove pacotes de teste desnecessários, deixando o container leve)
-RUN composer install --no-dev --prefer-dist --no-scripts --no-progress --optimize-autoloader
+# 5. Instala as dependências IGNORANDO os limites da config de plataforma antiga
+# (Isso resolve o conflito entre o lock do PHP 8.4 e a trava visual do json)
+RUN composer install --no-dev --prefer-dist --no-scripts --no-progress --optimize-autoloader --ignore-platform-reqs
 
-# 6. Agora que a pasta vendor existe, baixa o binário do RoadRunner no lugar certo
+# 6. Baixa o binário do RoadRunner
 RUN php vendor/bin/rr get-binary
 
-# 7. Expõe a porta que o RoadRunner vai escutar
+# 7. Expõe a porta
 EXPOSE 8080
 
 # 8. Comando único de inicialização
