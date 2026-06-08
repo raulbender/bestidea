@@ -3,9 +3,3 @@ services:
     name: best-idea-app
     runtime: docker
     plan: free
-    envVars:
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: best-idea-redis
-          property: connectionString
