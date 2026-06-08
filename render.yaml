@@ -3,7 +3,6 @@ services:
     name: best-idea-app
     runtime: docker
     plan: free
-    # O Render detectará automaticamente o seu Dockerfile
     envVars:
       - key: REDIS_URL
         fromService:
@@ -15,4 +14,3 @@ databases:
   - name: best-idea-redis
     type: redis
     plan: free
-    ipAllowList: [] # Permite acesso interno do seu app
