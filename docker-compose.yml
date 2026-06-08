@@ -9,7 +9,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     container_name: phpapp_app
     env_file:
       - .env

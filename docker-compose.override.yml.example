@@ -1,5 +1,8 @@
 services:
   app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     environment:
       - RR_HTTP_POOL_DEBUG=true
       - RR_HTTP_POOL_NUM_WORKERS=1
@@ -7,3 +10,4 @@ services:
       - RR_HTTP_READ_TIMEOUT=3600s
       - RR_HTTP_WRITE_TIMEOUT=3600s
       - RR_HTTP_IDLE_TIMEOUT=3600s
+      - RR_HTTP_POOL_ALLOCATE_TIMEOUT=3600s
