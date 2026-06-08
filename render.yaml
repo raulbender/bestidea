@@ -1,5 +1,18 @@
 services:
+  # 1. Seu Serviço Web (O Container Docker com RoadRunner)
   - type: web
     name: best-idea-app
     runtime: docker
     plan: free
+    envVars:
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: best-idea-redis
+          property: connectionString
+
+  # 2. O Seu Serviço de Redis (Agora mapeado como keyvalue)
+  - type: keyvalue
+    name: best-idea-redis
+    plan: free
+    ipAllowList: [] # Garante que apenas o seu app acesse o Redis internamente (Segurança máxima)
