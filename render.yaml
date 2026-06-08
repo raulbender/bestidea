@@ -9,8 +9,3 @@ services:
           type: redis
           name: best-idea-redis
           property: connectionString
-
-databases:
-  - name: best-idea-redis
-    type: redis
-    plan: free
