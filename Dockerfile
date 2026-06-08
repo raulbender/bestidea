@@ -28,4 +28,4 @@ RUN php vendor/bin/rr get-binary
 EXPOSE 8080
 
 # 8. Comando único de inicialização
-CMD php migrate.php && ./rr serve -c .rr.yaml
+CMD php volt migrate && ./rr serve -c .rr.yaml
