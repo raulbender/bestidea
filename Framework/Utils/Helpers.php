@@ -71,16 +71,16 @@ function icon(string $name, string $class = ''): void {
  */
 function partial(string $name, array $data = []): void {
     $viewsPath = Container::$config->viewsPath;
-    $currentDir = BaseController::$currentViewDir;
+    
 
-    $localPath = $viewsPath . $currentDir . $name . ".phtml";
+    $localPath = $viewsPath . $name . ".phtml";
     $layoutPath = $viewsPath . "layout/" . $name . ".phtml";
 
     $file = file_exists($localPath) ? $localPath : (file_exists($layoutPath) ? $layoutPath : null);
 
     if ($file) {
-        $baseDTO = BaseController::$currentDTO;
-
+        $baseDTO = \Framework\Container::resolve(\Framework\BaseDTO::class);
+        
         if (! empty($data)) {
             extract($data);
         }

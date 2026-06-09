@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Framework;
 
-class BaseDTO
+use Framework\Http\ScopedService;
+
+class BaseDTO implements ScopedService
 {
     public function __construct(
         public int $id = 0,

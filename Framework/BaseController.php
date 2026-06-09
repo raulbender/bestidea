@@ -21,8 +21,7 @@ abstract class BaseController implements ScopedService {
     protected CsrfServiceInterface $csrfService;
     protected BaseDTO $baseDTO;
     protected BaseDTOFactory $dtoFactory;
-    public static string $currentViewDir = '';
-    public static ?BaseDTO $currentDTO = null;
+    public ?BaseDTO $currentDTO = null;
 
 
     public function __construct() {
@@ -32,6 +31,7 @@ abstract class BaseController implements ScopedService {
         $this->csrfService->checkCsrf();
         /**Inicializa o DTO que será compartilhado com todas as views */
         $this->baseDTO = $this->dtoFactory->create();
+        Container::bind(BaseDTO::class, $this->baseDTO);
     }
 
     /**
@@ -75,7 +75,7 @@ abstract class BaseController implements ScopedService {
      */
     protected function render(string $view, ?object $data = null, string $layout = 'layout/layout', bool $isFramework = false): ResponseDTO {
         $this->baseDTO->csrf_token = $this->csrfService->getToken();
-        self::$currentDTO = $this->baseDTO;
+        //self::$currentDTO = $this->baseDTO;
         $baseDTO = $this->baseDTO;
         // Define o caminho da view
         $viewPath = $isFramework
