@@ -20,6 +20,7 @@ $config = new Config(
     dbName: ensureEnv('DB_NAME'),
     dbUser: ensureEnv('DB_USER'),
     dbPass: ensureEnv('DB_PASS'),
+    dbPort: ensureEnv('DB_PORT') ?: '3306',
     adminToken: ensureEnv('TOKEN'),
     pepper: ensureEnv('PEPPER'),
     adminPath: ensureEnv('ADMIN_PATH'),

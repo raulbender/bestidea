@@ -9,6 +9,7 @@ class Config
         public readonly string $dbName,
         public readonly string $dbUser,
         public readonly string $dbPass,
+        public readonly string $dbPort,
         public readonly string $adminToken,
         public readonly string $pepper,
         public readonly string $adminPath,
@@ -26,7 +27,7 @@ class Config
         public readonly string $googleRedirectUri,
         public readonly string $afterLoginRedirect,
         public readonly string $resendApiKey,
-        public readonly string $isDevEnvironment,
+        public readonly string $isDevEnvironment,        
     ) {
     }
 }

@@ -21,6 +21,7 @@ class PdoAdapter implements DatabaseInterface
         $user = $config->dbUser ?? $_ENV['DB_USER'];
         $pass = $config->dbPass ?? $_ENV['DB_PASS'];
         $dbname = $config->dbName ?? $_ENV['DB_NAME'];
+        $dbPort = $config->dbPort ?? $_ENV['DB_PORT'] ?? '3306';
 
         // Trava de segurança para testes
         if (defined('PHPUNIT_RUNNING') && PHPUNIT_RUNNING === true) {
@@ -30,7 +31,7 @@ class PdoAdapter implements DatabaseInterface
             }
         }
 
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+        $dsn = "mysql:host=$host;port=$dbPort;dbname=$dbname;charset=utf8mb4";
 
         try {
             $this->pdo = new PDO($dsn, $user, $pass, [
