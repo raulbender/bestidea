@@ -8,13 +8,14 @@ use Framework\Http\CsrfServiceInterface;
 use Framework\Http\SessionInterface;
 use Framework\Utils\Navigation;
 use Framework\Http\ResponseDTO;
+use Framework\Http\ScopedService;
 
 /**
  * Classe BaseController
  * * Serve como o centro de comando para todos os controllers do navio.
  * Fornece atalhos para sessão, proteção CSRF e renderização de views.
  */
-abstract class BaseController {
+abstract class BaseController implements ScopedService {
     protected string $view;
     protected SessionInterface $session;
     protected CsrfServiceInterface $csrfService;

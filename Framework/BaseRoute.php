@@ -9,9 +9,10 @@ use Framework\Extensions\GoogleLogin\GoogleLoginController;
 use Framework\Extensions\Payment\WebhookController;
 use Framework\Http\Request;
 use Framework\Http\ResponseDTO;
+use Framework\Http\ScopedService;
 use Framework\Utils\Translator;
 
-abstract class BaseRoute {
+abstract class BaseRoute implements ScopedService {
     /** @var array<array<string,string>> */
     protected array $routes;
 
