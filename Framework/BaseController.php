@@ -115,4 +115,33 @@ abstract class BaseController implements ScopedService {
             $expire
         );
     }
+
+
+    /**
+     * Entrega uma página ponte em Javascript para forçar o navegador a gravar
+     * cookies em contextos restritos de primeiro acesso (Cross-Site).
+     */
+    protected function cookieBridge(string $cookieName, string $cookieValue, string $redirectUrl): ResponseDTO {
+        $html = "
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Carregando...</title>
+            <script>
+                document.cookie = '{$cookieName}={$cookieValue}; Path=/; Max-Age=3600; SameSite=Lax; Secure';
+                window.location.href = '{$redirectUrl}';
+            </script>
+        </head>
+        <body style='background: #0f172a; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh;'>
+            <div style='font-size: 1.1rem; letter-spacing: 0.05em;'>Carregando sala com segurança...</div>
+        </body>
+        </html>
+        ";
+
+        return new ResponseDTO(
+            statusCode: 200,
+            headers: ['Content-Type' => 'text/html; charset=UTF-8'],
+            body: $html
+        );
+    }
 }
