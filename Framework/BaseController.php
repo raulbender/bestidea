@@ -109,7 +109,7 @@ abstract class BaseController implements ScopedService {
 
     protected function cookie(string $name, string $value, int $expire = 3600): string {
         return sprintf(
-            "%s=%s; Path=/; HttpOnly; SameSite=Lax; Max-Age=%d",
+            "%s=%s; Path=/; HttpOnly; SameSite=Lax; Max-Age=%d; Secure",
             $name,
             $value,
             $expire
