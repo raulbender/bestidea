@@ -28,7 +28,7 @@ class RoomController extends BaseController {
   }
 
 
-  public function view(Request $request): ResponseDTO {
+public function view(Request $request): ResponseDTO {
     $uuid = $request->getAttribute('uuid');
 
     $room = $this->roomService->getRoomByUuid($uuid);
@@ -40,16 +40,15 @@ class RoomController extends BaseController {
     $cookies = $request->getCookieParams();
     $authorId = $cookies[$cookieName] ?? null;
 
-    $roomDTO = $this->roomService->getRoomDTO($uuid, $authorId);
-
-    $response = $this->render('room/view', $roomDTO);
-
-    if (!isset($cookies[$cookieName])) {
-      $response->headers['Set-Cookie'] = $this->cookie($cookieName, (string)$roomDTO->author_id);
+    // 🔥 O XEQUE-MATE: Se não tem cookie, devolvemos a "Ponte de Confiabilidade"
+   if (!$authorId) {
+        $roomDTO = $this->roomService->getRoomDTO($uuid, null); //
+        return $this->cookieBridge($cookieName, (string)$roomDTO->author_id, route('room_view', ['uuid' => $uuid]));
     }
 
-    return $response;
-  }
+    $roomDTO = $this->roomService->getRoomDTO($uuid, $authorId);
 
+    return $this->render('room/view', $roomDTO);
+  }
 
 }
