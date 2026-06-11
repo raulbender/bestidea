@@ -1,19 +1,25 @@
+
 async function loadFeed() {
     try {
-        // 1. Pegamos o idioma que está na URL atual (ex: 'pt' ou 'en')
-        // Uma forma simples é pegar o primeiro segmento após a barra
         const lang = window.location.pathname.split('/')[1] || window.VoltI18n.lang || 'en';
-        
         const apiUrl = `/${lang}/api/idea/${window.ROOM_CONTEXT.uuid}`;
 
         const response = await fetch(apiUrl);
-        
         const ideas = await response.json();
+        
+        // 1. Renderiza os cards puros do servidor
         renderFeed(ideas);
+        
+        // 2. MAGIA: Aplica a ordenação salva no LocalStorage silenciosamente
+        if (typeof VoltFeedSort !== 'undefined') {
+            VoltFeedSort.applyCurrent();
+        }
     } catch (error) {
         console.error("Erro ao navegar nessas águas:", error);
     }
 }
+
+
 
 function formatRelativeTime(dateString) {
     const past = new Date(dateString.replace(' ', 'T'));
@@ -55,8 +61,23 @@ function renderFeed(ideas) {
     }
 
     feedApp.innerHTML = ideas.map(idea => {
+
+        // --- CÁLCULO DE ORDENAÇÃO ---
+        const createdTime = new Date(idea.created_at.replace(' ', 'T')).getTime();
+        let lastCommentTime = 0; 
+        if (idea.comments && idea.comments.length > 0) {
+            const commentTimes = idea.comments.map(c => new Date(c.created_at.replace(' ', 'T')).getTime());
+            lastCommentTime = Math.max(...commentTimes);
+        }
+        const votes = parseFloat(idea.average_rating) || 0;
+        // -----------------------------
+
         return `
-        <article class="feed-item bg-main border border-subtle rounded-lg shadow-sm mb-6 volt-animate" data-idea-id="${idea.id}">
+        <article class="feed-item bg-main border border-subtle rounded-lg shadow-sm mb-6 volt-animate" 
+                data-idea-id="${idea.id}" 
+                data-created="${createdTime}"
+                data-comment="${lastCommentTime}"
+                data-votes="${votes}">
             <div class="p-4">
                     <header class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-3">
@@ -241,5 +262,87 @@ async function submitComment(ideaId) {
         btnSubmit.innerHTML = originalText;
     }
 }
+
+
+/**
+ * Motor de Ordenação Client-Side do Volt R²
+ */
+const VoltFeedSort = {
+    // Cria uma chave única para cada sala (ex: volt_sort_abc123)
+    getStorageKey() {
+        return `volt_sort_pref_${window.ROOM_CONTEXT.uuid}`;
+    },
+
+    // Lê a preferência do navegador (se não existir, default é 'recent')
+    getCurrentCriteria() {
+        return localStorage.getItem(this.getStorageKey()) || 'recent';
+    },
+
+    // Aplica a configuração atual (usado no loadFeed)
+    applyCurrent() {
+        this.apply(this.getCurrentCriteria(), false);
+    },
+
+    // O maestro que executa a ordenação
+    apply(criteria, saveChoice = true) {
+        const container = document.getElementById('feed-app');
+        if (!container) return;
+
+        const cards = Array.from(container.querySelectorAll('.feed-item'));
+        if (cards.length === 0) return;
+
+        // Executa a ordenação matemática
+        if (criteria === 'recent') this.sortByRecent(cards);
+        if (criteria === 'comment') this.sortByLastComment(cards);
+        if (criteria === 'votes') this.sortByVotes(cards);
+
+        // Reoxigena o DOM
+        cards.forEach(card => container.appendChild(card));
+
+        // Se foi um clique do usuário (saveChoice = true), grava no LocalStorage
+        if (saveChoice) {
+            localStorage.setItem(this.getStorageKey(), criteria);
+        }
+
+        // Fecha o menu após a escolha
+        if (typeof VoltDropdown !== 'undefined') VoltDropdown.closeAll();
+    },
+
+    sortByRecent(cards) {
+        cards.sort((a, b) => parseInt(b.dataset.created) - parseInt(a.dataset.created));
+    },
+
+    // 💬 Especialista 2: Últimos Comentados (Blindado contra bugs de vazios)
+    sortByLastComment(cards) {
+        cards.sort((a, b) => {
+            const timeA = parseInt(a.dataset.comment);
+            const timeB = parseInt(b.dataset.comment);
+
+            // Caso 1: Ambas têm comentários -> Ordena pelo comentário mais recente
+            if (timeA > 0 && timeB > 0) {
+                return timeB - timeA;
+            }
+            
+            // Caso 2: Apenas a ideia 'b' tem comentários -> 'b' fica em primeiro
+            if (timeB > 0 && timeA === 0) return 1;
+            
+            // Caso 3: Apenas a ideia 'a' tem comentários -> 'a' fica em primeiro
+            if (timeA > 0 && timeB === 0) return -1;
+
+            // Caso 4: Nenhuma das duas tem comentários -> Desempata pela ideia mais recente criada
+            return parseInt(b.dataset.created) - parseInt(a.dataset.created);
+        });
+    },
+
+    sortByVotes(cards) {
+        cards.sort((a, b) => {
+            const voteDiff = parseFloat(b.dataset.votes) - parseFloat(a.dataset.votes);
+            if (voteDiff === 0) return parseInt(b.dataset.created) - parseInt(a.dataset.created);
+            return voteDiff;
+        });
+    }
+};
+
+
 
 document.addEventListener('DOMContentLoaded', loadFeed);
