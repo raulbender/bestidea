@@ -52,7 +52,7 @@ function ensureEnv(string $key): string {
  */
 function icon(string $name, string $class = ''): void {
     // Caminho centralizado
-    $path = Container::$config->viewsPath .  "Icons/{$name}.phtml";
+    $path = Container::$config->viewsPath .  "Icons/{$name}.svg";
 
     if (file_exists($path)) {
         // Se quisermos passar classes CSS para o SVG
