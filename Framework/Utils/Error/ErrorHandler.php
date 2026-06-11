@@ -84,7 +84,7 @@ class ErrorHandler {
 
 
     private static function renderErrorPage(int $code): void {
-        $errorFile = __DIR__ . "/../../Views/errors/{$code}.phtml";
+        $errorFile = __DIR__ . "/../../Views/errors/{$code}.php";
 
         if (file_exists($errorFile)) {
             include $errorFile;

@@ -79,14 +79,14 @@ abstract class BaseController implements ScopedService {
         $baseDTO = $this->baseDTO;
         // Define o caminho da view
         $viewPath = $isFramework
-            ? __DIR__ . '/Views/' . $view . ".phtml"
-            : Container::$config->viewsPath . $view . ".phtml";
+            ? __DIR__ . '/Views/' . $view . ".php"
+            : Container::$config->viewsPath . $view . ".php";
 
         $mainViewContent = $this->loadViewContent($viewPath, $data);
 
         $layoutPath = $isFramework
-            ? __DIR__ . '/Views/' . $layout . ".phtml"
-            : Container::$config->viewsPath . $layout . ".phtml";
+            ? __DIR__ . '/Views/' . $layout . ".php"
+            : Container::$config->viewsPath . $layout . ".php";
 
         ob_start();
         require $layoutPath;

@@ -73,8 +73,8 @@ function partial(string $name, array $data = []): void {
     $viewsPath = Container::$config->viewsPath;
     
 
-    $localPath = $viewsPath . $name . ".phtml";
-    $layoutPath = $viewsPath . "layout/" . $name . ".phtml";
+    $localPath = $viewsPath . $name . ".php";
+    $layoutPath = $viewsPath . "layout/" . $name . ".php";
 
     $file = file_exists($localPath) ? $localPath : (file_exists($layoutPath) ? $layoutPath : null);
 
