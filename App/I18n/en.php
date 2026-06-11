@@ -38,6 +38,9 @@ return [
         'share_your_idea' => 'Share your idea',
         'send_idea' => 'Send Idea',
         'idea_placeholder' => 'Share your brilliant idea here...',
+        'share' => 'Share',
+        'refresh' => 'Refresh',
+        'sort_by' => 'Sort By',
     ],
     'common' => [
         'submit' => 'Submit',

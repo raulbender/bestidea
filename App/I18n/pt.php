@@ -38,6 +38,9 @@ return [
         'share_your_idea' => 'Compartilhe sua ideia',
         'send_idea' => 'Enviar Ideia',
         'idea_placeholder' => 'Compartilhe sua ideia brilhante aqui...',
+        'share' => 'Compartilhar',
+        'refresh' => 'Atualizar',
+        'sort_by' => 'Ordenar',
     ],
     'common' => [
         'submit' => 'Enviar',
