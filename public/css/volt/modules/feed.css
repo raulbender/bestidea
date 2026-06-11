@@ -23,3 +23,51 @@
     border-bottom: none;
 }
 
+.feed-sub-navbar {    
+    background-color: var(--bg-secondary);
+    height: var(--nav-height);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Três colunas simétricas */
+    align-items: center;        
+    max-width: var(--container-md);
+    margin: 0 auto;
+    width: 100%;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+}
+
+/* Alinhamos as pontas usando a propriedade de posicionamento de caixas do Grid */
+.sub-nav-left {
+    display: flex;
+    justify-content: flex-start; /* Empurra o botão pro início (esquerda) */
+}
+
+.sub-nav-center {
+    display: flex;
+    justify-content: center; /* Centraliza perfeitamente o refresh */
+}
+
+.sub-nav-right {
+    display: flex;
+    justify-content: flex-end; /* Empurra o botão pro final (direita) */
+    position: relative; /* Importante para que o absolute do dropdown funcione baseado nele */
+}
+
+/* Garante que o ícone e a legenda fiquem empilhados e centralizados */
+.sub-navbar-button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: var(--font-size-xs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1); /* Espaço sutil entre o ícone e o texto */
+    transition: color var(--transition-fast) var(--ease-out);
+}
+
+.sub-navbar-button:hover {
+    color: var(--text-main); /* Dá um feedback elegante ao passar o mouse */
+}
