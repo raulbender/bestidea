@@ -41,6 +41,9 @@ return [
         'share' => 'Compartilhar',
         'refresh' => 'Atualizar',
         'sort_by' => 'Ordenar',
+        'most_recent' => 'Mais Recentes',
+        'top_rated' => 'Melhor Nota',
+        'last_commented' => 'Últimos Comentados',
     ],
     'common' => [
         'submit' => 'Enviar',

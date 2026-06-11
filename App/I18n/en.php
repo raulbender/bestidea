@@ -41,6 +41,9 @@ return [
         'share' => 'Share',
         'refresh' => 'Refresh',
         'sort_by' => 'Sort By',
+        'most_recent' => 'Most Recent Idea',
+        'top_rated' => 'Top Rated',
+        'last_commented' => 'Last Commented',
     ],
     'common' => [
         'submit' => 'Submit',
