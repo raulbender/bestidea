@@ -44,6 +44,7 @@ return [
         'most_recent' => 'Most Recent Idea',
         'top_rated' => 'Top Rated',
         'last_commented' => 'Last Commented',
+        'copy_link' => 'Copy Link',
     ],
     'common' => [
         'submit' => 'Submit',

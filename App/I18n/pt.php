@@ -44,6 +44,7 @@ return [
         'most_recent' => 'Mais Recentes',
         'top_rated' => 'Melhor Nota',
         'last_commented' => 'Últimos Comentados',
+        'copy_link' => 'Copiar Link',
     ],
     'common' => [
         'submit' => 'Enviar',
