@@ -343,6 +343,61 @@ const VoltFeedSort = {
     }
 };
 
+/**
+ * Motor de Compartilhamento Inteligente do Volt R² (Mobile & Desktop)
+ */
+const VoltShare = {
+    
+    // O maestro que decide o fluxo baseado no dispositivo
+    async handle(event) {
+        // Dados estruturados que serão enviados para o compartilhamento nativo
+        const shareData = {
+            title: document.title,
+            text: window.ROOM_CONTEXT?.room_description || 'Confira esta sala no BestIdea!',
+            url: window.location.href
+        };
 
+        // 📱 CAMINHO 1: Dispositivo Móvel (Suporta Web Share API)
+        if (navigator.share) {
+            try {
+                // Abre a gaveta nativa do Android/iOS (WhatsApp, E-mail, etc)
+                await navigator.share(shareData);
+                return; // Missão cumprida, encerra a execução!
+            } catch (error) {
+                // Se o usuário apenas fechou a gaveta nativa sem compartilhar, ignora o erro
+                if (error.name === 'AbortError') return;
+                console.error('Erro na navegação do Share nativo:', error);
+            }
+        }
+
+        // 💻 CAMINHO 2: Desktop/PC (Não suporta Share nativo)
+        // Aciona o motor nativo de dropdowns que você já construiu
+        if (typeof VoltDropdown !== 'undefined') {
+            VoltDropdown.toggle('share-dropdown', event);
+        }
+    },
+
+    // Ação executada ao clicar no link do dropdown (Fallback de PC)
+    async copyToClipboard() {
+        try {
+            // Utiliza a API moderna de área de transferência do navegador
+            await navigator.clipboard.writeText(window.location.href);
+            
+            // Exibe o alerta de sucesso usando o seu componente customizado
+            if (typeof VoltAlert !== 'undefined') {
+                VoltAlert.show('Sucesso!', 'Link copiado para a área de transferência.', 'success');
+            } else {
+                alert('Link copiado!');
+            }
+        } catch (err) {
+            console.error('Falha ao tentar ancorar o link na memória:', err);
+        } finally {
+            // Fecha o dropdown de forma limpa
+            if (typeof VoltDropdown !== 'undefined') {
+                VoltDropdown.closeAll();
+            }
+        }
+    }
+};
 
 document.addEventListener('DOMContentLoaded', loadFeed);

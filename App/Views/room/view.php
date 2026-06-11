@@ -3,11 +3,12 @@
 
 <div class="feed-sub-navbar">
 
-    <div class="sub-nav-left">
-        <button onclick="copyRoomLink(this)" class="sub-navbar-button">
+    <div class="sub-nav-left" style="position: relative;"> <button onclick="VoltShare.handle(event)" class="sub-navbar-button">
             <?php icon('share'); ?>
             <span><?= __('rooms.share') ?></span>
         </button>
+
+        <?php partial('room/share_dropdown'); ?>
     </div>
 
     <div class="sub-nav-center">
@@ -19,12 +20,12 @@
 
 
     <div class="sub-nav-right">
-    <button onclick="VoltDropdown.toggle('rank-dropdown', event)" class="sub-navbar-button">
-        <?php icon('sort'); ?>
-        <span><?= __('rooms.sort_by')?></span>
-    </button>
+        <button onclick="VoltDropdown.toggle('rank-dropdown', event)" class="sub-navbar-button">
+            <?php icon('sort'); ?>
+            <span><?= __('rooms.sort_by') ?></span>
+        </button>
 
-    <?php partial('room/sort_dropdown'); ?>
+        <?php partial('room/sort_dropdown'); ?>
     </div>
 
 </div>
