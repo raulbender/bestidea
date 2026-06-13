@@ -1,4 +1,4 @@
-# 💡 BestIdea — Plataforma para Brainstorming Colaborativo em Tempo Real
+# 💡 BestIdea — Plataforma para Brainstorming Colaborativo
 O **BestIdea** é um ecossistema SaaS voltado para a criação e validação de ideias em salas dinâmicas e temporárias. O projeto permite que usuários criem salas temáticas com contagem regressiva, enviem sugestões de forma anonimizada, votem e comentem.
 
 # 🎯 Filosofia de Desenvolvimento e Stack
