@@ -4,12 +4,12 @@ O **BestIdea** é um ecossistema SaaS voltado para a criação e validação de 
 # 🎯 Filosofia de Desenvolvimento e Stack
 Este ecossistema foi desenvolvido utilizando PHP Vanilla, JavaScript Puro (ES6+) e CSS Nativo. A escolha por não utilizar frameworks prontos no core da aplicação foi deliberada, visando o aprendizado profundo de engenharia de software, segurança, gerenciamento de infraestrutura de rede e ciclo de vida de processos.
 
-Para demonstrar proficiência em ferramentas de alta produtividade demandadas pelo mercado corporativo, possuo em paralelo o projeto **[GeralPost](https://github.com/raulbender/geralpost)(Em desenvolvimento)**, construído com o ecossistema completo do Framework Laravel.
+Para demonstrar proficiência em ferramentas de alta produtividade demandadas pelo mercado corporativo, possuo em paralelo o projeto **[GeralPost](https://github.com/raulbender/geralpost) (Em desenvolvimento)**, construído com o ecossistema completo do Framework Laravel.
 
 
 # 🧭 Evolução da Frota (Histórico de Projetos)
 **O BestIdea é o resultado de um ciclo incremental de aprendizado focado em engenharia backend:**
-1. **[BananaClub](https://github.com/raulbender/banana-club)(Legado em Produção na AWS):** Meu primeiro projeto completo de estudo. Embora funcional e hospedado de forma real na AWS, serviu como laboratório para identificar gargalos de escalabilidade, arquivos de estilo monolíticos e oportunidades de melhoria no acoplamento de código PHP.
+1. **[BananaClub](https://github.com/raulbender/banana-club) (Legado em Produção na AWS):** Meu primeiro projeto completo de estudo. Embora funcional e hospedado de forma real na AWS, serviu como laboratório para identificar gargalos de escalabilidade, arquivos de estilo monolíticos e oportunidades de melhoria no acoplamento de código PHP.
 2. **[Volt R² Framework](https://github.com/raulbender/volt-r2) (Miniframework Autoral):** Desenvolvido como um projeto de fundação pessoal para solucionar as limitações do modelo tradicional (FPM). É um miniframework PHP completo voltado para ambientes de memória persistente com RoadRunner, contendo Container de Injeção de Dependências próprio, Query Builder fluente, Migrations e CLI nativa para automação de tarefas.
 3. **BestIdea (SaaS Atual no Render):**  Esta aplicação foi construída inteiramente utilizando o ecossistema do Volt R² Framework, aplicando os conceitos de separação de conceitos na prática.
 
