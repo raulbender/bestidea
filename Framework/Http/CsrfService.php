@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Framework\Http;
 
 use Framework\Container;
-use Framework\Utils\Logger\Logger;
 
 class CsrfService implements CsrfServiceInterface {
     private const SESSION_KEY = '_csrf_token';
@@ -49,7 +48,10 @@ class CsrfService implements CsrfServiceInterface {
     }
 
 
-    public function isValid(string $submittedToken): bool {
+    public function isValid(?string $submittedToken): bool {
+        if ($submittedToken === null) {
+            return false;
+        }
         $storedToken = $this->session->pullString(self::SESSION_KEY);
         if (empty($storedToken) || empty($submittedToken)) {
             return false;

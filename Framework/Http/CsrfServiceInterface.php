@@ -8,6 +8,6 @@ interface CsrfServiceInterface extends ScopedService
 {
     public function __construct(SessionInterface $session);
     public function getToken(): string;
-    public function isValid(string $submittedToken): bool;
+    public function isValid(?string $submittedToken): bool;
     public function checkCsrf(): void;
 }
